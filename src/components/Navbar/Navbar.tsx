@@ -43,6 +43,10 @@ export default function Navbar() {
             Contact
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
           </Link>
+          <Link href="/activities" className="text-white font-medium hover:text-primary transition-colors text-lg relative group">
+            Activities
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </Link>
         </div>
 
         {/* Empty right area for perfect centering of middle items */}
@@ -74,6 +78,9 @@ export default function Navbar() {
         </Link>
         <Link href="/#contact" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-white uppercase tracking-tighter">
           Contact
+        </Link>
+        <Link href="/activities" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-white uppercase tracking-tighter">
+          Activities
         </Link>
       </div>
     </nav>
