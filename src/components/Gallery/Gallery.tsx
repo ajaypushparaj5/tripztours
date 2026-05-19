@@ -6,15 +6,15 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const IMAGES = [
   "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=2000&auto=format&fit=crop", // Kerala backwaters
-  "https://images.unsplash.com/photo-1593693397690-362cb9666c6b?q=80&w=2000&auto=format&fit=crop", // Munnar tea gardens
-  "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=2000&auto=format&fit=crop", // Kerala boat
-  "https://images.unsplash.com/photo-1600354146083-d92e5c8e31de?q=80&w=2000&auto=format&fit=crop", // Kathakali
+  "/tz1.jpg", // Munnar tea gardens
+  "/tz2.jpg", // adv
+  "/tz3.jpg", // varanasi
 ];
 
 const TITLES = [
   "Serene Backwaters",
   "Misty Tea Estates",
-  "Vibrant Traditions",
+  "Hiking Trails",
   "Cultural Heritage"
 ];
 
@@ -51,7 +51,7 @@ export default function Gallery() {
         <h2 className="text-[clamp(3rem,8vw,10rem)] font-black uppercase tracking-tighter leading-none text-white opacity-20 absolute top-24">
           Gallery
         </h2>
-        
+
         <AnimatePresence mode="wait">
           <motion.h3
             key={`title-${currentIndex}`}
@@ -67,7 +67,7 @@ export default function Gallery() {
       </div>
 
       {/* Controls */}
-      <button 
+      <button
         onClick={prevSlide}
         className="absolute left-4 md:left-12 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full bg-black/20 hover:bg-white text-white hover:text-primary transition-all backdrop-blur-md border border-white/20"
         aria-label="Previous Image"
@@ -75,14 +75,14 @@ export default function Gallery() {
         <ChevronLeft size={32} />
       </button>
 
-      <button 
+      <button
         onClick={nextSlide}
         className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full bg-black/20 hover:bg-white text-white hover:text-primary transition-all backdrop-blur-md border border-white/20"
         aria-label="Next Image"
       >
         <ChevronRight size={32} />
       </button>
-      
+
       {/* Indicators */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex gap-4">
         {IMAGES.map((_, idx) => (
