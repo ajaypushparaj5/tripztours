@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const IMAGES = [
-  "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=2000&auto=format&fit=crop", // Kerala backwaters
+  "/tz4.jpg", // Kerala backwaters
   "/tz1.jpg", // Munnar tea gardens
   "/tz2.jpg", // adv
   "/tz3.jpg", // varanasi
