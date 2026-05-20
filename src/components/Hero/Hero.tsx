@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 // --- CENTRALIZED PARALLAX ANIMATION CONFIGURATION ---
@@ -15,29 +15,34 @@ export const PARALLAX_CONFIG = {
     src: '/parallax/cloud.jpg',
     initialScale: 1.15, // Slightly scaled up to prevent edge gaps when shifted upwards
     finalScale: 1.4,    // Ending scale
-    initialY: '-12%',   // Shipped upwards initially to reveal the clouds and sky
+    initialY: '-12%',   // Shifted upwards initially to reveal the clouds and sky
     finalY: '3%',       // Moves down relative to scroll progress (parallax)
   },
 
   // --- FOREGROUND: MOUNTAIN ---
   mountain: {
     src: '/parallax/mountain.png',
-    initialScale: 1.45,  // Scale at top of the page (starts zoomed in)
-    finalScale: 1.0,     // Scale at bottom of scroll (zooms out to reveal landscape)
-    initialY: '0%',      // Starting vertical position offset
-    finalY: '5%',       // Ending vertical position offset (moves down slightly to settle)
-    height: '55vh',      // Visual height coverage of the mountain at the bottom of viewport
+    initialScale: 1.45,       // Scale at top of the page on desktop (starts zoomed in)
+    finalScale: 1.0,          // Scale at bottom of scroll on desktop (reveals scenery)
+    initialScaleMobile: 5.0,  // Larger scale zoom on mobile viewports to prevent empty gaps
+    finalScaleMobile: 4.0,    // Mobile scale at 100% scroll
+    initialY: '0%',           // Starting vertical position offset
+    finalY: '5%',            // Ending vertical position offset (moves down slightly to settle)
   },
 
   // --- SPAWNING: MAN ---
   man: {
     src: '/parallax/man.png',
-    initialScale: 0.6,   // Starting scale as he emerges (smaller)
-    finalScale: 1.0,     // Final scale when fully emerged
-    initialY: '110%',    // Starting position below viewport (hidden)
-    finalY: '0%',        // Final position when scrolled to 100% (settled on the mountain)
-    width: '320px',      // Width of the man image layer
-    bottomOffset: '0vh', // Position of the man from the bottom of the screen when settled
+    initialScale: 0.6,        // Starting scale as he emerges (desktop)
+    finalScale: 1.0,          // Final scale when fully emerged (desktop)
+    initialScaleMobile: 0.5,  // Starting scale on mobile
+    finalScaleMobile: 0.8,    // Final scale on mobile (preventing giant silhouettes)
+    initialY: '110%',         // Starting position below viewport (hidden)
+    finalY: '0%',             // Final position when scrolled to 100% (settled on the mountain)
+    widthDesktop: '320px',    // Width of the man image layer on desktop
+    widthMobile: '320px',     // Width of the man image layer on mobile
+    bottomOffsetDesktop: '0vh', // Position of the man from bottom when settled (desktop)
+    bottomOffsetMobile: '1.5vh', // Position of the man from bottom when settled (mobile)
   },
 
   // --- TYPOGRAPHY: TITLE ---
@@ -45,26 +50,33 @@ export const PARALLAX_CONFIG = {
     text: 'Tripz Tours',
     initialY: '0px',
     finalY: '-220px',    // Moves up faster than scroll speed (parallax depth)
+    finalYMobile: '-50px', // Shorter translation Y limit on mobile screen heights
     initialScale: 1.0,
     finalScale: 0.85,    // Shrinks slightly as scroll progresses
     initialOpacity: 1,
     finalOpacity: 0,     // Fades out completely as user scrolls down
+    fontSizeDesktop: 'clamp(5rem, 14vw, 13rem)', // Desktop dynamic font size clamp
+    fontSizeMobile: 'clamp(2.3rem, 20vw, 8rem)', // Mobile responsive font size clamp
   },
 
   // --- SECONDARY TYPOGRAPHY: ESCAPE ---
   escapeText: {
     text: 'ESCAPE',
-    initialY: '30%',      // Starting offset position
-    finalY: '180%',      // Pushed downwards off-screen
+    initialY: '30%',      // Starting offset position (updated by user)
+    finalY: '180%',      // Pushed downwards off-screen (updated by user)
+    finalYMobile: '400%', // Slower, proportional push down limit on mobile
     initialScale: 1.0,
     finalScale: 0.9,     // Shrinks slightly as it gets pushed down
     initialOpacity: 0.95,
     finalOpacity: 0,     // Fades out completely
+    fontSizeDesktop: 'clamp(6rem, 19vw, 17rem)', // Desktop font size clamp for ESCAPE
+    fontSizeMobile: 'clamp(3rem, 20vw, 10rem)', // Mobile responsive font size clamp for ESCAPE
   },
 };
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Set up scroll listener bound to our container
   const { scrollYProgress } = useScroll({
@@ -72,12 +84,21 @@ export default function Hero() {
     offset: ["start start", "end end"]
   });
 
-  // Smoothly reset scroll on fresh page load to ensure animation plays from start
+  // Handle client-side mobile screen detection safely (prevents SSR hydration warnings)
   useEffect(() => {
+    // Scroll restoration
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // Initialize on mount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Map scroll progress [0, 1] to parallax transformation values defined in the config
@@ -92,10 +113,14 @@ export default function Hero() {
     [PARALLAX_CONFIG.clouds.initialY, PARALLAX_CONFIG.clouds.finalY]
   );
 
+  // Dynamic responsive transforms for mountain scaling
   const mountainScale = useTransform(
     scrollYProgress,
     [0, 1],
-    [PARALLAX_CONFIG.mountain.initialScale, PARALLAX_CONFIG.mountain.finalScale]
+    [
+      isMobile ? PARALLAX_CONFIG.mountain.initialScaleMobile : PARALLAX_CONFIG.mountain.initialScale,
+      isMobile ? PARALLAX_CONFIG.mountain.finalScaleMobile : PARALLAX_CONFIG.mountain.finalScale
+    ]
   );
   const mountainY = useTransform(
     scrollYProgress,
@@ -103,10 +128,14 @@ export default function Hero() {
     [PARALLAX_CONFIG.mountain.initialY, PARALLAX_CONFIG.mountain.finalY]
   );
 
+  // Dynamic responsive transforms for man scaling
   const manScale = useTransform(
     scrollYProgress,
     [0, 1],
-    [PARALLAX_CONFIG.man.initialScale, PARALLAX_CONFIG.man.finalScale]
+    [
+      isMobile ? PARALLAX_CONFIG.man.initialScaleMobile : PARALLAX_CONFIG.man.initialScale,
+      isMobile ? PARALLAX_CONFIG.man.finalScaleMobile : PARALLAX_CONFIG.man.finalScale
+    ]
   );
   const manY = useTransform(
     scrollYProgress,
@@ -114,10 +143,14 @@ export default function Hero() {
     [PARALLAX_CONFIG.man.initialY, PARALLAX_CONFIG.man.finalY]
   );
 
+  // Dynamic responsive translation Y for Title
   const titleY = useTransform(
     scrollYProgress,
     [0, 1],
-    [PARALLAX_CONFIG.title.initialY, PARALLAX_CONFIG.title.finalY]
+    [
+      PARALLAX_CONFIG.title.initialY,
+      isMobile ? PARALLAX_CONFIG.title.finalYMobile : PARALLAX_CONFIG.title.finalY
+    ]
   );
   const titleScale = useTransform(
     scrollYProgress,
@@ -130,10 +163,14 @@ export default function Hero() {
     [PARALLAX_CONFIG.title.initialOpacity, PARALLAX_CONFIG.title.finalOpacity]
   );
 
+  // Dynamic responsive translation Y for Secondary text (ESCAPE)
   const escapeY = useTransform(
     scrollYProgress,
     [0, 1],
-    [PARALLAX_CONFIG.escapeText.initialY, PARALLAX_CONFIG.escapeText.finalY]
+    [
+      PARALLAX_CONFIG.escapeText.initialY,
+      isMobile ? PARALLAX_CONFIG.escapeText.finalYMobile : PARALLAX_CONFIG.escapeText.finalY
+    ]
   );
   const escapeScale = useTransform(
     scrollYProgress,
@@ -185,7 +222,12 @@ export default function Hero() {
             zIndex: 10
           }}
         >
-          <h1 className="text-[clamp(3.5rem,14vw,13rem)] font-black uppercase tracking-tighter leading-none m-0 drop-shadow-2xl selection:bg-primary">
+          <h1
+            className="font-black uppercase tracking-tighter leading-none m-0 drop-shadow-2xl selection:bg-primary"
+            style={{
+              fontSize: isMobile ? PARALLAX_CONFIG.title.fontSizeMobile : PARALLAX_CONFIG.title.fontSizeDesktop
+            }}
+          >
             {PARALLAX_CONFIG.title.text}
           </h1>
         </motion.div>
@@ -219,7 +261,12 @@ export default function Hero() {
             zIndex: 25
           }}
         >
-          <h2 className="text-[clamp(4.5rem,19vw,17rem)] font-black uppercase tracking-widest leading-none m-0 text-[#132336] select-none drop-shadow-[0_15px_25px_rgba(0,0,0,0.7)]">
+          <h2
+            className="font-black uppercase tracking-widest leading-none m-0 text-[#132336] select-none drop-shadow-[0_15px_25px_rgba(0,0,0,0.7)]"
+            style={{
+              fontSize: isMobile ? PARALLAX_CONFIG.escapeText.fontSizeMobile : PARALLAX_CONFIG.escapeText.fontSizeDesktop
+            }}
+          >
             {PARALLAX_CONFIG.escapeText.text}
           </h2>
         </motion.div>
@@ -230,8 +277,8 @@ export default function Hero() {
           style={{
             scale: manScale,
             y: manY,
-            width: PARALLAX_CONFIG.man.width,
-            bottom: PARALLAX_CONFIG.man.bottomOffset,
+            width: isMobile ? PARALLAX_CONFIG.man.widthMobile : PARALLAX_CONFIG.man.widthDesktop,
+            bottom: isMobile ? PARALLAX_CONFIG.man.bottomOffsetMobile : PARALLAX_CONFIG.man.bottomOffsetDesktop,
             transformOrigin: 'bottom center',
             zIndex: 30
           }}
