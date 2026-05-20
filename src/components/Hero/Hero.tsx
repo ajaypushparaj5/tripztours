@@ -48,7 +48,7 @@ export const PARALLAX_CONFIG = {
 
   // --- TYPOGRAPHY: TITLE ---
   title: {
-    text: 'Tripz Tours',
+    text: 'TRIPZ WORLD',
     initialY: '0px',
     initialYMobile: '0px', // Mobile initial Y starting position
     finalY: '-220px',    // Moves up faster than scroll speed (parallax depth)
@@ -82,7 +82,7 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  
+
   // Set up scroll listener bound to our container
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -233,19 +233,18 @@ export default function Hero() {
   const indicatorOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
 
   return (
-    <div 
-      ref={containerRef} 
-      className="relative w-full overflow-visible" 
+    <div
+      ref={containerRef}
+      className="relative w-full overflow-visible"
       style={{ height: PARALLAX_CONFIG.containerHeight }}
     >
       {/* Sleek Fading Preloader Mask Screen to guarantee zero text-only rendering states */}
-      <div 
-        className={`fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center transition-all duration-700 ease-out ${
-          imagesLoaded ? 'opacity-0 pointer-events-none invisible' : 'opacity-100'
-        }`}
+      <div
+        className={`fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center transition-all duration-700 ease-out ${imagesLoaded ? 'opacity-0 pointer-events-none invisible' : 'opacity-100'
+          }`}
       >
         <span className="text-white font-black text-2xl tracking-[0.25em] uppercase animate-pulse">
-          Tripz Tours
+          Tripz World
         </span>
         <div className="w-16 h-[2px] bg-white/20 mt-4 overflow-hidden relative">
           <div className="absolute top-0 left-0 h-full bg-white w-1/2 animate-[loading_1.5s_infinite_ease-in-out]" />
@@ -254,19 +253,19 @@ export default function Hero() {
 
       {/* Sticky container that locks the scene in the viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-slate-950 flex items-center justify-center">
-        
+
         {/* Layer 1: Background (Clouds) */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{ 
+          style={{
             scale: cloudScale,
             y: cloudY,
-            zIndex: 1 
+            zIndex: 1
           }}
         >
-          <Image 
-            src={PARALLAX_CONFIG.clouds.src} 
-            alt="Clouds Background" 
+          <Image
+            src={PARALLAX_CONFIG.clouds.src}
+            alt="Clouds Background"
             fill
             sizes="100vw"
             className="object-cover"
@@ -275,16 +274,16 @@ export default function Hero() {
         </motion.div>
 
         {/* Layer 2: Text Heading */}
-        <motion.div 
+        <motion.div
           className="relative flex flex-col items-center text-center text-white px-8 pointer-events-none"
-          style={{ 
+          style={{
             y: titleY,
             scale: titleScale,
             opacity: titleOpacity,
             zIndex: 10
           }}
         >
-          <h1 
+          <h1
             className="font-black uppercase tracking-tighter leading-none m-0 drop-shadow-2xl selection:bg-primary"
             style={{
               fontSize: isMobile ? PARALLAX_CONFIG.title.fontSizeMobile : PARALLAX_CONFIG.title.fontSizeDesktop
@@ -295,18 +294,18 @@ export default function Hero() {
         </motion.div>
 
         {/* Layer 3: Foreground (Mountains) */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{ 
+          style={{
             scale: mountainScale,
             y: mountainY,
             transformOrigin: 'bottom center',
             zIndex: 20
           }}
         >
-          <Image 
-            src={PARALLAX_CONFIG.mountain.src} 
-            alt="Mountain Foreground" 
+          <Image
+            src={PARALLAX_CONFIG.mountain.src}
+            alt="Mountain Foreground"
             width={1920}
             height={1080}
             className="w-full h-auto absolute bottom-0 left-0 block"
@@ -315,9 +314,9 @@ export default function Hero() {
         </motion.div>
 
         {/* Layer 3.5: ESCAPE Block Text */}
-        <motion.div 
+        <motion.div
           className="absolute left-0 right-0 text-center pointer-events-none flex justify-center w-full"
-          style={{ 
+          style={{
             y: escapeY,
             scale: escapeScale,
             opacity: escapeOpacity,
@@ -325,7 +324,7 @@ export default function Hero() {
             zIndex: 25
           }}
         >
-          <h2 
+          <h2
             className="font-black uppercase tracking-widest leading-none m-0 text-[#132336] select-none drop-shadow-[0_15px_25px_rgba(0,0,0,0.7)]"
             style={{
               fontSize: isMobile ? PARALLAX_CONFIG.escapeText.fontSizeMobile : PARALLAX_CONFIG.escapeText.fontSizeDesktop
@@ -336,9 +335,9 @@ export default function Hero() {
         </motion.div>
 
         {/* Layer 4: Emerging Man */}
-        <motion.div 
+        <motion.div
           className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
-          style={{ 
+          style={{
             scale: manScale,
             y: manY,
             width: isMobile ? PARALLAX_CONFIG.man.widthMobile : PARALLAX_CONFIG.man.widthDesktop,
@@ -347,9 +346,9 @@ export default function Hero() {
             zIndex: 30
           }}
         >
-          <Image 
-            src={PARALLAX_CONFIG.man.src} 
-            alt="Emerging Hiker" 
+          <Image
+            src={PARALLAX_CONFIG.man.src}
+            alt="Emerging Hiker"
             width={320}
             height={480}
             className="w-full h-auto object-contain"
@@ -361,7 +360,7 @@ export default function Hero() {
         <div className="absolute bottom-0 left-0 w-full h-[15vh] bg-gradient-to-t from-black to-transparent pointer-events-none z-35" />
 
         {/* Scroll Cue Indicator */}
-        <motion.div 
+        <motion.div
           className="absolute bottom-12 flex flex-col items-center gap-2 pointer-events-none z-40"
           style={{ opacity: indicatorOpacity }}
         >
@@ -369,15 +368,15 @@ export default function Hero() {
             Scroll to Explore
           </span>
           <div className="w-[24px] h-[40px] rounded-full border-2 border-white/30 flex justify-center items-start p-1.5">
-            <motion.div 
+            <motion.div
               className="w-1.5 h-1.5 rounded-full bg-white"
-              animate={{ 
-                y: [0, 16, 0] 
+              animate={{
+                y: [0, 16, 0]
               }}
-              transition={{ 
-                duration: 1.8, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut"
               }}
             />
           </div>

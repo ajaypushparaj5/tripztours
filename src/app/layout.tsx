@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tripz Tours",
+  title: "Tripz World",
   description: "A modern tourism and travel company based in Kerala.",
 };
 
