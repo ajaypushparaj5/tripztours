@@ -1,14 +1,19 @@
 "use client";
 
+import Image from 'next/image';
+
 export default function About() {
   return (
     <section id="about" className="min-h-screen w-full flex flex-col justify-center bg-black text-white py-24 relative overflow-hidden">
       
-      {/* Full Screen Background Image */}
-      <img
+      {/* Full Screen Background Image (Optimized Next.js Image) */}
+      <Image
         src="/aboutus.jpeg"
         alt="About Us Background"
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        fill
+        sizes="100vw"
+        className="object-cover z-0"
+        priority
       />
       <div className="absolute inset-0 bg-black/60 z-0" />
 

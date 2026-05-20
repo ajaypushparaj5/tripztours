@@ -2,6 +2,7 @@
 
 import { Plane, Calendar, Users, MapPin } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function Booking() {
   const [destination, setDestination] = useState("Zurich (ZRH)");
@@ -13,11 +14,14 @@ export default function Booking() {
   return (
     <main className="min-h-screen w-full relative flex items-center justify-center md:justify-end bg-[#0b0f17] overflow-x-hidden">
       
-      {/* Full Screen Background Image */}
-      <img
+      {/* Full Screen Background Image (Optimized Next.js Image) */}
+      <Image
         src="/booking.jpeg"
         alt="Booking Background"
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        fill
+        sizes="100vw"
+        className="object-cover z-0"
+        priority
       />
       <div className="absolute inset-0 bg-black/45 z-0" />
       

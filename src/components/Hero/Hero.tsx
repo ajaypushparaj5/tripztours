@@ -50,12 +50,14 @@ export const PARALLAX_CONFIG = {
   title: {
     text: 'Tripz Tours',
     initialY: '0px',
+    initialYMobile: '0px', // Mobile initial Y starting position
     finalY: '-220px',    // Moves up faster than scroll speed (parallax depth)
-    finalYMobile: '-50px', // Shorter translation Y limit on mobile screen heights
+    finalYMobile: '-150px', // Shorter translation Y limit on mobile screen heights
     initialScale: 1.0,
     finalScale: 0.85,    // Shrinks slightly as scroll progresses
     initialOpacity: 1,
-    finalOpacity: 0,     // Fades out completely as user scrolls down
+    finalOpacity: 0,     // Fades out completely as user scrolls down on desktop
+    finalOpacityMobile: 1.0, // Prevents fading out completely on mobile viewports
     fontSizeDesktop: 'clamp(5rem, 14vw, 13rem)', // Desktop dynamic font size clamp
     fontSizeMobile: 'clamp(2.3rem, 20vw, 8rem)', // Mobile responsive font size clamp
   },
@@ -64,6 +66,7 @@ export const PARALLAX_CONFIG = {
   escapeText: {
     text: 'ESCAPE',
     initialY: '30%',      // Starting offset position (updated by user)
+    initialYMobile: '30%', // Mobile initial Y starting position
     finalY: '180%',      // Pushed downwards off-screen (updated by user)
     finalYMobile: '400%', // Slower, proportional push down limit on mobile
     initialScale: 1.0,
@@ -188,7 +191,7 @@ export default function Hero() {
     scrollYProgress,
     [0, 1],
     [
-      PARALLAX_CONFIG.title.initialY,
+      isMobile ? PARALLAX_CONFIG.title.initialYMobile : PARALLAX_CONFIG.title.initialY,
       isMobile ? PARALLAX_CONFIG.title.finalYMobile : PARALLAX_CONFIG.title.finalY
     ]
   );
@@ -200,7 +203,10 @@ export default function Hero() {
   const titleOpacity = useTransform(
     scrollYProgress,
     [0, 1],
-    [PARALLAX_CONFIG.title.initialOpacity, PARALLAX_CONFIG.title.finalOpacity]
+    [
+      PARALLAX_CONFIG.title.initialOpacity,
+      isMobile ? PARALLAX_CONFIG.title.finalOpacityMobile : PARALLAX_CONFIG.title.finalOpacity
+    ]
   );
 
   // Dynamic responsive translation Y for Secondary text (ESCAPE)
@@ -208,7 +214,7 @@ export default function Hero() {
     scrollYProgress,
     [0, 1],
     [
-      PARALLAX_CONFIG.escapeText.initialY,
+      isMobile ? PARALLAX_CONFIG.escapeText.initialYMobile : PARALLAX_CONFIG.escapeText.initialY,
       isMobile ? PARALLAX_CONFIG.escapeText.finalYMobile : PARALLAX_CONFIG.escapeText.finalY
     ]
   );

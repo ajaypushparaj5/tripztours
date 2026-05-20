@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ActivitiesPage() {
   const activities = [
@@ -33,11 +34,17 @@ export default function ActivitiesPage() {
       
       {/* Hero Banner Section */}
       <section className="relative w-full h-[60vh] flex flex-col items-center justify-center overflow-hidden">
-        {/* Background Image of swiss peaks */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat filter brightness-[0.4] z-0 scale-105 transition-transform duration-[2000ms]"
-          style={{ backgroundImage: `url('/activities/large/activity1.jpg')` }}
-        />
+        {/* Background Image of swiss peaks (Next.js Optimized with priority loading) */}
+        <div className="absolute inset-0 z-0 scale-105 brightness-[0.4] transition-transform duration-[2000ms]">
+          <Image
+            src="/activities/large/activity1.jpg"
+            alt="Activities Header Background"
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f17]/20 via-transparent to-[#0b0f17] z-1" />
         
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center gap-4">
@@ -67,31 +74,35 @@ export default function ActivitiesPage() {
                 {/* Visual Media Composition (Left/Right) */}
                 <div className="w-full lg:w-1/2 flex flex-col gap-6 relative">
                   
-                  {/* Majestic Large Main Cover Card */}
+                  {/* Majestic Large Main Cover Card (Next.js Optimized with responsive sizes) */}
                   <div className="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-3xl shadow-2xl group border border-white/5 bg-[#121824]">
-                    <img 
+                    <Image 
                       src={activity.largeImage} 
                       alt={activity.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                     
                     {/* Location Badge */}
-                    <span className="absolute top-6 left-6 px-4 py-2 bg-slate-950/85 backdrop-blur-md text-xs font-semibold uppercase tracking-wider rounded-full border border-white/10">
+                    <span className="absolute top-6 left-6 px-4 py-2 bg-slate-950/85 backdrop-blur-md text-xs font-semibold uppercase tracking-wider rounded-full border border-white/10 z-10">
                       {activity.location}
                     </span>
                   </div>
 
-                  {/* Elegant Embedded Small Offset Detail Card (Hidden on narrow mobile, stunning floating detail on md+) */}
+                  {/* Elegant Embedded Small Offset Detail Card (Next.js Optimized, hidden on mobile) */}
                   <div 
                     className={`hidden md:block absolute -bottom-16 ${
                       isEven ? '-right-10' : '-left-10'
                     } w-60 aspect-square overflow-hidden rounded-2xl border-4 border-[#0b0f17] shadow-[0_20px_40px_rgba(0,0,0,0.5)] z-20 hover:scale-[1.03] transition-transform duration-500`}
                   >
-                    <img 
+                    <Image 
                       src={activity.smallImage} 
                       alt={`${activity.title} detail`}
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="240px"
+                      className="object-cover"
                     />
                   </div>
 
