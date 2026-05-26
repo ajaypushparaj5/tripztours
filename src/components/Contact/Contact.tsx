@@ -1,66 +1,115 @@
-import { Mail, Phone, MapPin } from 'lucide-react';
+"use client";
+
+import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Contact() {
   return (
-    <section id="contact" className="min-h-screen w-full flex justify-center items-center bg-black text-white py-24 relative overflow-hidden">
+    <section id="contact" className="min-h-screen w-full flex justify-center items-center bg-cream text-charcoal py-24 px-6 md:px-12 relative overflow-hidden border-t border-charcoal/10">
       
-      {/* Full Screen Background Image */}
-      <img
-        src="/contact.jpeg"
-        alt="Contact Us Background"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      />
-      <div className="absolute inset-0 bg-black/60 z-0" />
-
-      <div className="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row gap-16 items-center">
+      <div className="container mx-auto max-w-6xl relative z-10 flex flex-col lg:flex-row gap-16 items-center">
         
-        {/* Left Side: Massive Title and Info */}
-        <div className="w-full lg:w-1/2 flex flex-col gap-8">
-          <h2 className="text-[clamp(4rem,8vw,10rem)] font-black uppercase tracking-tighter leading-none mb-4">
+        {/* Left Side: Editorial Typography and Info Cards */}
+        <div className="w-full lg:w-1/2 flex flex-col gap-8 text-left">
+          <span className="text-primary text-xs md:text-sm font-bold uppercase tracking-widest block">
+            Begin the Journey
+          </span>
+          
+          <h2 className="text-[clamp(3.5rem,8vw,8rem)] font-black uppercase tracking-tighter leading-none text-charcoal m-0">
             Get In<br/>Touch
           </h2>
-          <p className="text-xl md:text-2xl font-light text-white/90 max-w-lg leading-relaxed">
-            Ready to embark on the journey of a lifetime? Connect with our travel architects today.
+          
+          <div className="w-20 h-[3px] bg-primary rounded-full mt-2" />
+          
+          <p className="text-lg md:text-xl font-light text-charcoal/80 max-w-lg leading-relaxed">
+            Ready to embark on the journey of a lifetime? Connect with our travel architects today to co-create your custom escape story.
           </p>
           
-          <div className="flex flex-col gap-6 mt-8">
-            <div className="flex items-center gap-4 text-xl">
-              <div className="p-4 bg-white/10 backdrop-blur-sm rounded-full"><Phone size={24} /></div>
-              <span>+91 98765 43210</span>
-            </div>
-            <div className="flex items-center gap-4 text-xl">
-              <div className="p-4 bg-white/10 backdrop-blur-sm rounded-full"><Mail size={24} /></div>
-              <span>hello@tripztours.com</span>
-            </div>
-            <div className="flex items-center gap-4 text-xl">
-              <div className="p-4 bg-white/10 backdrop-blur-sm rounded-full"><MapPin size={24} /></div>
-              <span>Cochin, Kerala, India</span>
-            </div>
+          {/* Elegant Detail Info Rows as Cards */}
+          <div className="flex flex-col gap-4 mt-4 max-w-md">
+            
+            <motion.div 
+              whileHover={{ x: 5 }}
+              className="bg-white border border-charcoal/5 p-4 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.01)] flex items-center gap-4 group cursor-pointer hover:shadow-md transition-all"
+            >
+              <div className="p-3 bg-primary/10 text-primary rounded-xl group-hover:scale-110 transition-transform">
+                <Phone className="w-5 h-5" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40">Call Us</span>
+                <span className="text-sm font-bold text-charcoal/80">+91 98765 43210</span>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              whileHover={{ x: 5 }}
+              className="bg-white border border-charcoal/5 p-4 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.01)] flex items-center gap-4 group cursor-pointer hover:shadow-md transition-all"
+            >
+              <div className="p-3 bg-primary/10 text-primary rounded-xl group-hover:scale-110 transition-transform">
+                <Mail className="w-5 h-5" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40">Email Us</span>
+                <span className="text-sm font-bold text-charcoal/80">hello@tripztours.com</span>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              whileHover={{ x: 5 }}
+              className="bg-white border border-charcoal/5 p-4 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.01)] flex items-center gap-4 group cursor-pointer hover:shadow-md transition-all"
+            >
+              <div className="p-3 bg-primary/10 text-primary rounded-xl group-hover:scale-110 transition-transform">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40">Find Us</span>
+                <span className="text-sm font-bold text-charcoal/80">Cochin, Kerala, India</span>
+              </div>
+            </motion.div>
+
           </div>
         </div>
 
-        {/* Right Side: Form */}
+        {/* Right Side: Editorial White Form Card */}
         <div className="w-full lg:w-1/2">
-          <form className="bg-black/30 backdrop-blur-xl border border-white/20 p-8 md:p-12 rounded-3xl flex flex-col gap-6 shadow-2xl">
-            <h3 className="text-3xl font-bold mb-4">Send a Message</h3>
+          <form className="bg-white border border-charcoal/10 p-8 md:p-12 rounded-3xl flex flex-col gap-6 shadow-xl text-left">
+            <div className="flex flex-col gap-2">
+              <span className="text-primary text-[10px] font-black uppercase tracking-widest">Bespoke Inquiries</span>
+              <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-charcoal">Send a Message</h3>
+            </div>
+            
+            <div className="flex flex-col gap-2 mt-2">
+              <label className="text-xs font-black text-charcoal/50 uppercase tracking-widest">Your Name</label>
+              <input 
+                type="text" 
+                className="w-full bg-transparent border-b border-charcoal/20 pb-2 text-base focus:outline-none focus:border-primary transition-colors text-charcoal placeholder-charcoal/30 font-medium" 
+                placeholder="John Doe" 
+              />
+            </div>
             
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-white/70 uppercase tracking-widest">Your Name</label>
-              <input type="text" className="w-full bg-transparent border-b-2 border-white/20 pb-2 text-xl focus:outline-none focus:border-white transition-colors" placeholder="John Doe" />
+              <label className="text-xs font-black text-charcoal/50 uppercase tracking-widest">Email Address</label>
+              <input 
+                type="email" 
+                className="w-full bg-transparent border-b border-charcoal/20 pb-2 text-base focus:outline-none focus:border-primary transition-colors text-charcoal placeholder-charcoal/30 font-medium" 
+                placeholder="john@example.com" 
+              />
             </div>
             
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-white/70 uppercase tracking-widest">Email Address</label>
-              <input type="email" className="w-full bg-transparent border-b-2 border-white/20 pb-2 text-xl focus:outline-none focus:border-white transition-colors" placeholder="john@example.com" />
+            <div className="flex flex-col gap-2 mt-2">
+              <label className="text-xs font-black text-charcoal/50 uppercase tracking-widest">Your Message</label>
+              <textarea 
+                rows={4} 
+                className="w-full bg-transparent border-b border-charcoal/20 pb-2 text-base focus:outline-none focus:border-primary transition-colors text-charcoal placeholder-charcoal/30 resize-none font-medium" 
+                placeholder="Tell us about your dream trip..."
+              ></textarea>
             </div>
             
-            <div className="flex flex-col gap-2 mt-4">
-              <label className="text-sm font-medium text-white/70 uppercase tracking-widest">Your Message</label>
-              <textarea rows={4} className="w-full bg-transparent border-b-2 border-white/20 pb-2 text-xl focus:outline-none focus:border-white transition-colors resize-none" placeholder="Tell us about your dream trip..."></textarea>
-            </div>
-            
-            <button type="button" className="mt-8 bg-white text-primary font-black uppercase tracking-widest py-4 px-8 rounded-full hover:bg-gray-100 hover:scale-105 transition-all w-full text-lg">
-              Send Message
+            <button 
+              type="button" 
+              className="mt-6 bg-primary hover:bg-primary-dark text-white font-black uppercase tracking-widest py-4 px-8 rounded-xl hover:scale-[1.01] hover:shadow-lg active:scale-100 transition-all w-full text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer shadow-md"
+            >
+              Send Message <Send className="w-4 h-4" />
             </button>
           </form>
         </div>

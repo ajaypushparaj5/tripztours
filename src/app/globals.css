@@ -3,11 +3,13 @@
 @theme {
   --color-primary: #e81c4f;
   --color-primary-dark: #d01543;
+  --color-cream: #FAF6F0;
+  --color-charcoal: #111827;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #111111;
+  --background: #FAF6F0;
+  --foreground: #111827;
 }
 
 body {

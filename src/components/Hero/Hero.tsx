@@ -103,30 +103,45 @@ export default function Hero() {
     handleResize(); // Initialize on mount
     window.addEventListener('resize', handleResize);
 
-    // Preload critical parallax images to guarantee zero flashing on Vercel deployment
-    const imageUrls = [
+    // 1. Preload CRITICAL parallax images synchronously to reveal the page perfectly
+    const criticalUrls = [
       PARALLAX_CONFIG.clouds.src,
       PARALLAX_CONFIG.mountain.src,
       PARALLAX_CONFIG.man.src
     ];
 
     let loadedCount = 0;
-    imageUrls.forEach((url) => {
+    criticalUrls.forEach((url) => {
       const img = new window.Image();
       img.src = url;
-      img.onload = () => {
+      const handlePreloadLoad = () => {
         loadedCount++;
-        if (loadedCount === imageUrls.length) {
+        if (loadedCount === criticalUrls.length) {
           setImagesLoaded(true);
+          // 2. Preload SECONDARY assets asynchronously in the background once critical view is ready
+          preloadSecondaryAssets();
         }
       };
-      img.onerror = () => {
-        loadedCount++;
-        if (loadedCount === imageUrls.length) {
-          setImagesLoaded(true);
-        }
-      };
+      img.onload = handlePreloadLoad;
+      img.onerror = handlePreloadLoad;
     });
+
+    const preloadSecondaryAssets = () => {
+      const secondaryUrls = [
+        '/tz1.jpg',
+        '/tz2.jpg',
+        '/tz3.jpg',
+        '/tz4.jpg',
+        '/aboutus1.jpg',
+        '/aboutus2.jpg',
+        '/activities/large/activity1.jpg',
+        '/activities/large/activity2.jpg'
+      ];
+      secondaryUrls.forEach((url) => {
+        const img = new window.Image();
+        img.src = url;
+      });
+    };
 
     // Handle hash links (like #gallery or #contact) from other pages elegantly
     if (window.location.hash) {

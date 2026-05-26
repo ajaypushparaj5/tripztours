@@ -2,103 +2,161 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
-  // Monitor scroll height to transition the navbar background blur
+  const isLandingPage = pathname === '/';
+
+  // Monitor scroll height to transition the navbar background and text color on desktop
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      // Transition to cream navbar on desktop when scrolled past 90% of the viewport
+      setScrolled(window.scrollY > window.innerHeight * 0.9);
     };
+    
+    handleScroll();
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Mobile menu toggle closes when path changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Show cream background if scrolled past the hero, OR if on a child route, OR if mobile menu is expanded on click
+  const showCreamNavbar = !isLandingPage || scrolled || isOpen;
+
+  // Use charcoal text if scrolled past the hero, OR if on a child route, OR if mobile menu is expanded on click
+  const useCharcoalText = !isLandingPage || scrolled || isOpen;
+
+  const navItemClass = useCharcoalText
+    ? 'text-charcoal/80 font-bold hover:text-primary transition-colors text-[15px] tracking-wider uppercase relative group'
+    : 'text-white/80 font-bold hover:text-white transition-colors text-[15px] tracking-wider uppercase relative group';
+
+  const underlineClass = useCharcoalText
+    ? 'absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full'
+    : 'absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full';
+
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled || isOpen
-          ? 'py-4 bg-slate-950/80 backdrop-blur-lg shadow-lg border-b border-white/5'
-          : 'py-8 bg-transparent'
-        }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${
+        showCreamNavbar
+          ? 'py-4 bg-[#FAF6F0] shadow-sm border-b border-primary/10'
+          : 'py-6 bg-transparent border-b border-transparent shadow-none'
+      }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center relative z-50">
 
         {/* Logo */}
-        <div className="w-1/4">
-          <Link href="/" className="text-2xl font-black text-white uppercase tracking-tighter hover:opacity-80 transition-opacity">
+        <div className="flex items-center">
+          <Link
+            href="/"
+            className={`text-2xl font-black uppercase tracking-tighter transition-colors duration-300 ${
+              useCharcoalText ? 'text-charcoal hover:text-primary' : 'text-white hover:opacity-85'
+            }`}
+          >
             Tripz
           </Link>
         </div>
 
         {/* Centered Links (Desktop) */}
-        <div className="hidden md:flex w-2/4 justify-center items-center gap-12">
-          <Link href="/booking" className="text-white/80 font-semibold hover:text-white transition-colors text-lg relative group">
+        <div className="hidden lg:flex justify-center items-center gap-8">
+          <Link href="/booking" className={navItemClass}>
             Flight Booking
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+            <span className={underlineClass}></span>
           </Link>
-          <Link href="/#gallery" className="text-white/80 font-semibold hover:text-white transition-colors text-lg relative group">
+          <Link href="/#destinations" className={navItemClass}>
+            Destinations
+            <span className={underlineClass}></span>
+          </Link>
+          <Link href="/#about" className={navItemClass}>
+            About Us
+            <span className={underlineClass}></span>
+          </Link>
+          <Link href="/#gallery" className={navItemClass}>
             Gallery
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+            <span className={underlineClass}></span>
           </Link>
-          <Link href="/#contact" className="text-white/80 font-semibold hover:text-white transition-colors text-lg relative group">
+          <Link href="/#contact" className={navItemClass}>
             Contact
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+            <span className={underlineClass}></span>
           </Link>
-          <Link href="/activities" className="text-white/80 font-semibold hover:text-white transition-colors text-lg relative group">
+          <Link href="/activities" className={navItemClass}>
             Activities
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+            <span className={underlineClass}></span>
           </Link>
         </div>
 
-        {/* Empty right area for desktop balance */}
-        <div className="hidden md:block w-1/4"></div>
-
-        {/* Mobile Hamburger Button */}
+        {/* Mobile Hamburger Button (Lucide Icons with no circular outline/backing) */}
         <button
-          className="md:hidden flex flex-col gap-1.5 justify-center items-center w-8 h-8 focus:outline-none z-50 relative"
+          className={`lg:hidden focus:outline-none z-50 relative cursor-pointer border-none bg-transparent p-1 outline-none ring-0 active:scale-90 transition-all duration-200 ${
+            useCharcoalText ? 'text-charcoal hover:text-primary' : 'text-white hover:text-white/80'
+          }`}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-7 h-0.5 bg-white transition-transform duration-300 ease-in-out ${isOpen ? 'translate-y-2 rotate-45' : ''}`}></span>
-          <span className={`block w-7 h-0.5 bg-white transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-0' : ''}`}></span>
-          <span className={`block w-7 h-0.5 bg-white transition-transform duration-300 ease-in-out ${isOpen ? '-translate-y-2 -rotate-45' : ''}`}></span>
+          {isOpen ? (
+            <X className="w-8 h-8 transition-transform duration-300 rotate-0 hover:rotate-90" />
+          ) : (
+            <Menu className="w-8 h-8 transition-transform duration-300" />
+          )}
         </button>
       </div>
 
       {/* Standard Mobile Dropdown Menu (Collapsible under Navbar) */}
       <div
-        className={`absolute top-full left-0 w-full bg-slate-950/95 backdrop-blur-xl border-b border-white/5 z-40 flex flex-col px-8 py-6 gap-5 shadow-2xl transition-all duration-300 ease-in-out ${isOpen
+        className={`absolute top-full left-0 w-full bg-[#FAF6F0] border-b border-primary/10 z-40 flex flex-col px-8 py-6 gap-4 shadow-2xl transition-all duration-300 ease-in-out ${
+          isOpen
             ? 'opacity-100 translate-y-0 pointer-events-auto visible'
             : 'opacity-0 -translate-y-4 pointer-events-none invisible'
-          } md:hidden`}
+        } lg:hidden`}
       >
         <Link
           href="/booking"
           onClick={() => setIsOpen(false)}
-          className="text-lg font-bold text-white/95 hover:text-white transition-colors uppercase tracking-widest"
+          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           Flight Booking
         </Link>
         <Link
+          href="/#destinations"
+          onClick={() => setIsOpen(false)}
+          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
+        >
+          Destinations
+        </Link>
+        <Link
+          href="/#about"
+          onClick={() => setIsOpen(false)}
+          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
+        >
+          About Us
+        </Link>
+        <Link
           href="/#gallery"
           onClick={() => setIsOpen(false)}
-          className="text-lg font-bold text-white/95 hover:text-white transition-colors uppercase tracking-widest"
+          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           Gallery
         </Link>
         <Link
           href="/#contact"
           onClick={() => setIsOpen(false)}
-          className="text-lg font-bold text-white/95 hover:text-white transition-colors uppercase tracking-widest"
+          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           Contact
         </Link>
         <Link
           href="/activities"
           onClick={() => setIsOpen(false)}
-          className="text-lg font-bold text-white/95 hover:text-white transition-colors uppercase tracking-widest"
+          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           Activities
         </Link>
