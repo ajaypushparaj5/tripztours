@@ -15,7 +15,7 @@ export default function Contact() {
             Begin the Journey
           </span>
           
-          <h2 className="text-[clamp(3.5rem,8vw,8rem)] font-black uppercase tracking-tighter leading-none text-charcoal m-0">
+          <h2 className="text-[clamp(2.5rem,7vw,5.5rem)] font-black uppercase tracking-tighter leading-none text-charcoal m-0">
             Get In<br/>Touch
           </h2>
           

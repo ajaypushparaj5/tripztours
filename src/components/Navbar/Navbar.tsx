@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -10,35 +11,37 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  const isLandingPage = pathname === '/';
+  // Both the landing page (parallax hero) and activities page have dark headers.
+  // Other pages (booking) are light cream from the top.
+  const hasDarkHeader = pathname === '/' || pathname === '/activities';
 
   // Monitor scroll height to transition the navbar background and text color on desktop
   useEffect(() => {
     const handleScroll = () => {
-      // Transition to cream navbar on desktop when scrolled past 90% of the viewport
-      setScrolled(window.scrollY > window.innerHeight * 0.9);
+      const threshold = pathname === '/' ? window.innerHeight * 0.9 : 80;
+      setScrolled(window.scrollY > threshold);
     };
     
     handleScroll();
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [pathname]);
 
   // Mobile menu toggle closes when path changes
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
-  // Show cream background if scrolled past the hero, OR if on a child route, OR if mobile menu is expanded on click
-  const showCreamNavbar = !isLandingPage || scrolled || isOpen;
+  // Show cream background if scrolled, OR if the page doesn't have a dark header, OR if mobile menu is expanded
+  const showCreamNavbar = !hasDarkHeader || scrolled || isOpen;
 
-  // Use charcoal text if scrolled past the hero, OR if on a child route, OR if mobile menu is expanded on click
-  const useCharcoalText = !isLandingPage || scrolled || isOpen;
+  // Use charcoal text if scrolled, OR if the page doesn't have a dark header, OR if mobile menu is expanded
+  const useCharcoalText = !hasDarkHeader || scrolled || isOpen;
 
   const navItemClass = useCharcoalText
-    ? 'text-charcoal/80 font-bold hover:text-primary transition-colors text-[15px] tracking-wider uppercase relative group'
-    : 'text-white/80 font-bold hover:text-white transition-colors text-[15px] tracking-wider uppercase relative group';
+    ? 'text-charcoal/80 font-bold hover:text-primary transition-colors text-[14px] tracking-wider uppercase relative group'
+    : 'text-white/80 font-bold hover:text-white transition-colors text-[14px] tracking-wider uppercase relative group';
 
   const underlineClass = useCharcoalText
     ? 'absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full'
@@ -54,15 +57,31 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center relative z-50">
 
-        {/* Logo */}
+        {/* Logo containing white image + text */}
         <div className="flex items-center">
           <Link
             href="/"
-            className={`text-2xl font-black uppercase tracking-tighter transition-colors duration-300 ${
-              useCharcoalText ? 'text-charcoal hover:text-primary' : 'text-white hover:opacity-85'
-            }`}
+            className="flex items-center gap-2 group focus:outline-none"
           >
-            Tripz
+            <div className="relative w-8 h-10 transition-all duration-300">
+              <Image
+                src="/logowhite.png"
+                alt="Tripz Logo"
+                fill
+                sizes="32px"
+                className={`object-contain transition-all duration-300 ${
+                  useCharcoalText ? 'brightness-0' : 'brightness-200'
+                }`}
+                priority
+              />
+            </div>
+            <span
+              className={`text-2xl font-black uppercase tracking-tighter transition-colors duration-300 ${
+                useCharcoalText ? 'text-charcoal group-hover:text-primary' : 'text-white group-hover:opacity-85'
+              }`}
+            >
+              Tripz
+            </span>
           </Link>
         </div>
 
@@ -94,7 +113,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Hamburger Button (Lucide Icons with no circular outline/backing) */}
+        {/* Mobile Hamburger Button */}
         <button
           className={`lg:hidden focus:outline-none z-50 relative cursor-pointer border-none bg-transparent p-1 outline-none ring-0 active:scale-90 transition-all duration-200 ${
             useCharcoalText ? 'text-charcoal hover:text-primary' : 'text-white hover:text-white/80'
@@ -103,9 +122,9 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           {isOpen ? (
-            <X className="w-8 h-8 transition-transform duration-300 rotate-0 hover:rotate-90" />
+            <X className="w-7 h-7 transition-transform duration-300 rotate-0 hover:rotate-90" />
           ) : (
-            <Menu className="w-8 h-8 transition-transform duration-300" />
+            <Menu className="w-7 h-7 transition-transform duration-300" />
           )}
         </button>
       </div>
@@ -121,42 +140,42 @@ export default function Navbar() {
         <Link
           href="/booking"
           onClick={() => setIsOpen(false)}
-          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
+          className="text-[14px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           Flight Booking
         </Link>
         <Link
           href="/#destinations"
           onClick={() => setIsOpen(false)}
-          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
+          className="text-[14px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           Destinations
         </Link>
         <Link
           href="/#about"
           onClick={() => setIsOpen(false)}
-          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
+          className="text-[14px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           About Us
         </Link>
         <Link
           href="/#gallery"
           onClick={() => setIsOpen(false)}
-          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
+          className="text-[14px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           Gallery
         </Link>
         <Link
           href="/#contact"
           onClick={() => setIsOpen(false)}
-          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
+          className="text-[14px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           Contact
         </Link>
         <Link
           href="/activities"
           onClick={() => setIsOpen(false)}
-          className="text-[15px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
+          className="text-[14px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
         >
           Activities
         </Link>

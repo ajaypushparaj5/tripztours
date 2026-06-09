@@ -92,10 +92,10 @@ export default function ActivitiesPage() {
                     </span>
                   </div>
 
-                  {/* Elegant Embedded Small Offset Detail Card (Hidden on mobile) */}
+                  {/* Elegant Embedded Small Offset Detail Card (Hidden on mobile and tablet to prevent horizontal overflow) */}
                   <div 
-                    className={`hidden md:block absolute -bottom-16 ${
-                      isEven ? '-right-10' : '-left-10'
+                    className={`hidden lg:block absolute -bottom-16 ${
+                      isEven ? 'lg:-right-10' : 'lg:-left-10'
                     } w-60 aspect-square overflow-hidden rounded-2xl border-4 border-cream shadow-[0_20px_40px_rgba(0,0,0,0.08)] z-20 hover:scale-[1.03] transition-transform duration-500`}
                   >
                     <Image 
