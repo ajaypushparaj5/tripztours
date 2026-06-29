@@ -12,7 +12,7 @@ export default function Hero() {
   useEffect(() => {
     // Preload the main background image
     const img = new window.Image();
-    img.src = '/activities/large/activity1.jpg';
+    img.src = '/beach.png';
     img.onload = () => setImagesLoaded(true);
     img.onerror = () => setImagesLoaded(true);
   }, []);
@@ -21,9 +21,8 @@ export default function Hero() {
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-slate-950">
       {/* Sleek Fading Preloader Mask Screen */}
       <div
-        className={`fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center transition-all duration-700 ease-out ${
-          imagesLoaded ? 'opacity-0 pointer-events-none invisible' : 'opacity-100'
-        }`}
+        className={`fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center transition-all duration-700 ease-out ${imagesLoaded ? 'opacity-0 pointer-events-none invisible' : 'opacity-100'
+          }`}
       >
         <span className="text-white font-black text-2xl tracking-[0.25em] uppercase animate-pulse">
           Tripz World
@@ -34,15 +33,15 @@ export default function Hero() {
       </div>
 
       {/* Background Image with a subtle Ken Burns zoom effect on load */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 w-full h-full pointer-events-none z-0"
         initial={{ scale: 1.1, opacity: 0 }}
-        animate={imagesLoaded ? { scale: 1, opacity: 0.45 } : {}}
+        animate={imagesLoaded ? { scale: 1, opacity: 0.85 } : {}}
         transition={{ duration: 2.5, ease: "easeOut" }}
       >
         <Image
-          src="/activities/large/activity1.jpg"
-          alt="Breathtaking Alps Background"
+          src="/beach.png"
+          alt="Breathtaking Beach Background"
           fill
           sizes="100vw"
           className="object-cover"
@@ -50,9 +49,9 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* Dark & Crimson Gradient Overlays for Air Arabia vibe */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/40 to-slate-950/90 z-1 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-black/20 z-1 pointer-events-none" />
+      {/* Subtle Gradient Overlays for readability while keeping the bg bright */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-slate-950/50 z-1 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-black/10 z-1 pointer-events-none" />
 
       {/* Hero Content Area */}
       <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center justify-center h-full max-w-4xl">
@@ -63,7 +62,7 @@ export default function Hero() {
           className="flex flex-col items-center gap-6"
         >
           {/* Subtitle / Tagline */}
-          <span className="text-primary font-black tracking-[0.35em] text-xs md:text-sm uppercase bg-primary/10 border border-primary/20 px-4 py-2 rounded-full">
+          <span className="text-white font-black tracking-[0.35em] text-xs md:text-sm uppercase bg-primary px-4 py-2 rounded-full shadow-md">
             ESCAPE
           </span>
 
@@ -83,7 +82,7 @@ export default function Hero() {
               href="/#destinations"
               className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold uppercase tracking-wider text-xs md:text-sm rounded-full shadow-lg hover:scale-105 transition-all flex items-center gap-2 group cursor-pointer"
             >
-              Explore Destinations 
+              Explore Destinations
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
@@ -96,30 +95,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Static Scroll Cue Indicator */}
-      <motion.div
-        className="absolute bottom-12 flex flex-col items-center gap-2 pointer-events-none z-20"
-        initial={{ opacity: 0 }}
-        animate={imagesLoaded ? { opacity: 1 } : {}}
-        transition={{ duration: 1, delay: 1.2 }}
-      >
-        <span className="text-white/40 text-[10px] font-semibold tracking-widest uppercase animate-pulse">
-          Scroll to Explore
-        </span>
-        <div className="w-[20px] h-[34px] rounded-full border border-white/25 flex justify-center items-start p-1">
-          <motion.div
-            className="w-1 h-1 rounded-full bg-white/60"
-            animate={{
-              y: [0, 12, 0]
-            }}
-            transition={{
-              duration: 1.8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </div>
-      </motion.div>
+
     </section>
   );
 }
