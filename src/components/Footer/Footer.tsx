@@ -16,18 +16,15 @@ export default function Footer() {
           {/* Column 1: Brand & Contact Info */}
           <div className="lg:col-span-4 flex flex-col gap-6 text-left">
             <Link href="/" className="flex items-center gap-2 group w-fit focus:outline-none">
-              <div className="relative w-8 h-10">
+              <div className="relative w-24 h-24 rounded-full overflow-hidden border border-white/15 shadow-lg transition-transform duration-300 group-hover:scale-105">
                 <Image
-                  src="/logowhite.png"
-                  alt="Tripz Logo"
+                  src="/tripzlogo.jpg"
+                  alt="Tripz World Logo"
                   fill
-                  sizes="32px"
-                  className="object-contain brightness-100"
+                  sizes="96px"
+                  className="object-cover scale-[1.38] origin-center"
                 />
               </div>
-              <span className="text-2xl font-black uppercase tracking-tighter text-white group-hover:text-primary transition-colors">
-                Tripz
-              </span>
             </Link>
             
             <p className="text-sm font-light text-white/60 leading-relaxed max-w-sm">
@@ -56,7 +53,6 @@ export default function Footer() {
               Quick Links
             </h3>
             <div className="flex flex-col gap-3 text-sm font-medium">
-              <Link href="/booking" className="hover:text-primary transition-colors w-fit">Flight Booking</Link>
               <Link href="/#destinations" className="hover:text-primary transition-colors w-fit">Destinations</Link>
               <Link href="/#about" className="hover:text-primary transition-colors w-fit">About Us</Link>
               <Link href="/#gallery" className="hover:text-primary transition-colors w-fit">Gallery</Link>
@@ -73,7 +69,7 @@ export default function Footer() {
               <Link href="/activities" className="hover:text-primary transition-colors w-fit">Swiss Alps</Link>
               <Link href="/activities" className="hover:text-primary transition-colors w-fit">Dubai Desert</Link>
               <Link href="/#destinations" className="hover:text-primary transition-colors w-fit">Kerala Backwaters</Link>
-              <Link href="/booking" className="hover:text-primary transition-colors w-fit">Bali Gateway</Link>
+              <Link href="/activities" className="hover:text-primary transition-colors w-fit">Bali Gateway</Link>
             </div>
           </div>
 

@@ -11,8 +11,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Both the landing page (parallax hero) and activities page have dark headers.
-  // Other pages (booking) are light cream from the top.
+  // Both the landing page and activities page have dark headers.
   const hasDarkHeader = pathname === '/' || pathname === '/activities';
 
   // Monitor scroll height to transition the navbar background and text color on desktop
@@ -57,40 +56,28 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center relative z-50">
 
-        {/* Logo containing white image + text */}
+        {/* Logo containing the brand image */}
         <div className="flex items-center">
           <Link
             href="/"
             className="flex items-center gap-2 group focus:outline-none"
           >
-            <div className="relative w-8 h-10 transition-all duration-300">
+            <div className="relative w-20 h-20 rounded-full overflow-hidden border border-white/15 shadow-md transition-all duration-300 group-hover:scale-105">
               <Image
-                src="/logowhite.png"
-                alt="Tripz Logo"
+                src="/tripzlogo.jpg"
+                alt="Tripz World Logo"
                 fill
-                sizes="32px"
-                className={`object-contain transition-all duration-300 ${
-                  useCharcoalText ? 'brightness-0' : 'brightness-200'
-                }`}
+                sizes="80px"
+                className="object-cover scale-[1.38] origin-center"
                 priority
               />
             </div>
-            <span
-              className={`text-2xl font-black uppercase tracking-tighter transition-colors duration-300 ${
-                useCharcoalText ? 'text-charcoal group-hover:text-primary' : 'text-white group-hover:opacity-85'
-              }`}
-            >
-              Tripz
-            </span>
           </Link>
         </div>
 
         {/* Centered Links (Desktop) */}
         <div className="hidden lg:flex justify-center items-center gap-8">
-          <Link href="/booking" className={navItemClass}>
-            Flight Booking
-            <span className={underlineClass}></span>
-          </Link>
+
           <Link href="/#destinations" className={navItemClass}>
             Destinations
             <span className={underlineClass}></span>
@@ -137,13 +124,7 @@ export default function Navbar() {
             : 'opacity-0 -translate-y-4 pointer-events-none invisible'
         } lg:hidden`}
       >
-        <Link
-          href="/booking"
-          onClick={() => setIsOpen(false)}
-          className="text-[14px] font-bold text-charcoal/90 hover:text-primary transition-colors uppercase tracking-widest"
-        >
-          Flight Booking
-        </Link>
+
         <Link
           href="/#destinations"
           onClick={() => setIsOpen(false)}

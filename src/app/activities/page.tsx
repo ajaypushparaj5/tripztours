@@ -7,25 +7,25 @@ export default function ActivitiesPage() {
   const activities = [
     {
       id: 1,
-      title: "Swiss Alpine Expedition",
-      location: "Switzerland Alps",
-      largeImage: "/activities/large/activity1.jpg",
-      smallImage: "/activities/small/activity1.jpg",
-      duration: "5 Days",
-      difficulty: "Moderate to Challenging",
-      description: "Scale the snow-capped majesty of the Swiss Alps. Traverse pristine alpine glaciers, experience high-altitude luxury retreats, and witness legendary mountain horizons that redefine adventure.",
-      highlights: ["Glacier trekking on Jungfraujoch", "Exclusive luxury chalet lodging", "First-class scenic Alpine rail transfers"]
+      title: "Misty Munnar & Kerala Backwaters",
+      location: "Kerala, India",
+      largeImage: "/tz1.jpg",
+      smallImage: "/tz4.jpg",
+      duration: "6 Days",
+      difficulty: "Easy to Moderate",
+      description: "Experience the ultimate Kerala getaway with TRIPZ WORLD. Explore the mist-covered tea gardens of Munnar, trek through pristine wildlife sanctuaries, and cruise along the tranquil backwaters of Alleppey in a private luxury houseboat.",
+      highlights: ["Munnar tea plantation & hiking tour", "Luxury Alleppey houseboat stay", "Heritage sightseeing in historic Fort Kochi"]
     },
     {
       id: 2,
-      title: "Dubai Desert Safari & Dunes",
+      title: "Arabian Desert Safari & Dubai Highlights",
       location: "Dubai, UAE",
       largeImage: "/activities/large/activity2.jpg",
       smallImage: "/activities/small/activity2.jpg",
-      duration: "3 Days",
-      difficulty: "Easy to Moderate",
-      description: "Carve your path through the dramatic gold dunes of Dubai. Experience traditional Arabian luxury, high-octane 4x4 desert drifting, and a starlit oasis evening featuring premium culinary experiences.",
-      highlights: ["Thrilling private dune bashing", "Sunset dining in premium luxury oases", "Traditional stargazing and camel expeditions"]
+      duration: "4 Days",
+      difficulty: "Easy",
+      description: "Discover the perfect blend of modern luxury and traditional Arabian adventure in Dubai. Experience high-octane dune bashing in private 4x4 vehicles, witness beautiful desert sunsets, and enjoy premium cultural dining under the stars.",
+      highlights: ["Private 4x4 dune bashing & sandboarding", "Starlit desert dining & cultural show", "VIP visits to Burj Khalifa & Dubai Mall"]
     }
   ];
 
@@ -37,7 +37,7 @@ export default function ActivitiesPage() {
         {/* Background Image of swiss peaks (Next.js Optimized with priority loading) */}
         <div className="absolute inset-0 z-0 scale-105 brightness-[0.4] transition-transform duration-[2000ms]">
           <Image
-            src="/activities/large/activity1.jpg"
+            src="/tz1.jpg"
             alt="Activities Header Background"
             fill
             sizes="100vw"
@@ -50,13 +50,13 @@ export default function ActivitiesPage() {
         
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center gap-4">
           <span className="text-white/60 uppercase tracking-widest text-xs md:text-sm font-semibold">
-            Curated Global Adventures
+            Curated Adventures by TRIPZ WORLD
           </span>
           <h1 className="text-[clamp(2.5rem,8vw,6.5rem)] font-black uppercase tracking-tighter leading-none m-0 text-white drop-shadow-2xl">
             Our Activities
           </h1>
           <p className="max-w-2xl text-white/80 text-sm md:text-lg font-light leading-relaxed">
-            Every excursion is crafted for the visionary traveler, balancing raw natural wilderness with unmatched luxury.
+            Handcrafted journeys and local experiences tailored for the visionary traveler. Discover Kerala and the UAE like never before.
           </p>
         </div>
       </section>
@@ -138,7 +138,7 @@ export default function ActivitiesPage() {
                   </div>
 
                   <Link 
-                    href="/booking" 
+                    href="/#contact" 
                     className="mt-4 px-8 py-4 bg-primary text-white hover:bg-primary-dark font-bold uppercase tracking-wider text-sm rounded-full transition-all shadow-lg hover:-translate-y-0.5 active:translate-y-0"
                   >
                     Book This Escape

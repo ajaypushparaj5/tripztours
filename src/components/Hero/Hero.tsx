@@ -1,258 +1,29 @@
 "use client";
 
-import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-
-// --- CENTRALIZED PARALLAX ANIMATION CONFIGURATION ---
-export const PARALLAX_CONFIG = {
-  containerHeight: '200vh',
-
-  // --- BACKGROUND: CLOUDS ---
-  clouds: {
-    src: '/parallax/cloud.jpg',
-    initialScale: 1.15,
-    finalScale: 1.4,
-    initialY: '-12%',
-    finalY: '3%',
-  },
-
-  // --- FOREGROUND: MOUNTAIN ---
-  mountain: {
-    src: '/parallax/mountain.png',
-    initialScale: 1.45,
-    finalScale: 1.0,
-    initialScaleMobile: 5.0,
-    finalScaleMobile: 4.0,
-    initialY: '0%',
-    finalY: '5%',
-  },
-
-  // --- SPAWNING: MAN ---
-  man: {
-    src: '/parallax/man.png',
-    initialScale: 0.6,
-    finalScale: 1.0,
-    initialScaleMobile: 0.5,
-    finalScaleMobile: 0.8,
-    initialY: '110%',
-    finalY: '0%',
-    widthDesktop: '320px',
-    widthMobile: '320px',
-    bottomOffsetDesktop: '0vh',
-    bottomOffsetMobile: '1.5vh',
-  },
-
-  // --- TYPOGRAPHY: TITLE ---
-  title: {
-    text: 'TRIPZ WORLD',
-    initialY: '0px',
-    initialYMobile: '0px',
-    finalY: '-220px',
-    finalYMobile: '-150px',
-    initialScale: 1.0,
-    finalScale: 0.85,
-    initialOpacity: 1,
-    finalOpacity: 0,
-    finalOpacityMobile: 1.0,
-    fontSizeDesktop: 'clamp(5rem, 14vw, 13rem)',
-    fontSizeMobile: 'clamp(2.3rem, 20vw, 8rem)',
-  },
-
-  // --- SECONDARY TYPOGRAPHY: ESCAPE ---
-  escapeText: {
-    text: 'ESCAPE',
-    initialY: '30%',
-    initialYMobile: '30%',
-    finalY: '180%',
-    finalYMobile: '400%',
-    initialScale: 1.0,
-    finalScale: 0.9,
-    initialOpacity: 0.95,
-    finalOpacity: 0,
-    fontSizeDesktop: 'clamp(6rem, 19vw, 17rem)',
-    fontSizeMobile: 'clamp(3rem, 20vw, 10rem)',
-  },
-};
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export default function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  // Set up scroll listener bound to our container
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  // Client-side initialization, mobile screen detection, image preloading, and anchor scrolling
   useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    handleResize(); // Initialize on mount
-    window.addEventListener('resize', handleResize);
-
-    // 1. Preload CRITICAL parallax images synchronously to reveal the page perfectly
-    const criticalUrls = [
-      PARALLAX_CONFIG.clouds.src,
-      PARALLAX_CONFIG.mountain.src,
-      PARALLAX_CONFIG.man.src
-    ];
-
-    let loadedCount = 0;
-    criticalUrls.forEach((url) => {
-      const img = new window.Image();
-      img.src = url;
-      const handlePreloadLoad = () => {
-        loadedCount++;
-        if (loadedCount === criticalUrls.length) {
-          setImagesLoaded(true);
-          // 2. Preload SECONDARY assets asynchronously in the background once critical view is ready
-          preloadSecondaryAssets();
-        }
-      };
-      img.onload = handlePreloadLoad;
-      img.onerror = handlePreloadLoad;
-    });
-
-    const preloadSecondaryAssets = () => {
-      const secondaryUrls = [
-        '/tz1.jpg',
-        '/tz2.jpg',
-        '/tz3.jpg',
-        '/tz4.jpg',
-        '/aboutus1.jpg',
-        '/aboutus2.jpg',
-        '/activities/large/activity1.jpg',
-        '/activities/large/activity2.jpg'
-      ];
-      secondaryUrls.forEach((url) => {
-        const img = new window.Image();
-        img.src = url;
-      });
-    };
-
-    // Handle hash links (like #gallery or #contact) from other pages elegantly
-    if (window.location.hash) {
-      setTimeout(() => {
-        const id = window.location.hash.substring(1);
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 200);
-    } else {
-      window.scrollTo(0, 0);
-    }
-
-    return () => window.removeEventListener('resize', handleResize);
+    // Preload the main background image
+    const img = new window.Image();
+    img.src = '/activities/large/activity1.jpg';
+    img.onload = () => setImagesLoaded(true);
+    img.onerror = () => setImagesLoaded(true);
   }, []);
 
-  // Map scroll progress [0, 1] to parallax transformation values defined in the config
-  const cloudScale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [PARALLAX_CONFIG.clouds.initialScale, PARALLAX_CONFIG.clouds.finalScale]
-  );
-  const cloudY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [PARALLAX_CONFIG.clouds.initialY, PARALLAX_CONFIG.clouds.finalY]
-  );
-
-  // Dynamic responsive transforms for mountain scaling
-  const mountainScale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [
-      isMobile ? PARALLAX_CONFIG.mountain.initialScaleMobile : PARALLAX_CONFIG.mountain.initialScale,
-      isMobile ? PARALLAX_CONFIG.mountain.finalScaleMobile : PARALLAX_CONFIG.mountain.finalScale
-    ]
-  );
-  const mountainY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [PARALLAX_CONFIG.mountain.initialY, PARALLAX_CONFIG.mountain.finalY]
-  );
-
-  // Dynamic responsive transforms for man scaling
-  const manScale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [
-      isMobile ? PARALLAX_CONFIG.man.initialScaleMobile : PARALLAX_CONFIG.man.initialScale,
-      isMobile ? PARALLAX_CONFIG.man.finalScaleMobile : PARALLAX_CONFIG.man.finalScale
-    ]
-  );
-  const manY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [PARALLAX_CONFIG.man.initialY, PARALLAX_CONFIG.man.finalY]
-  );
-
-  // Dynamic responsive translation Y for Title
-  const titleY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [
-      isMobile ? PARALLAX_CONFIG.title.initialYMobile : PARALLAX_CONFIG.title.initialY,
-      isMobile ? PARALLAX_CONFIG.title.finalYMobile : PARALLAX_CONFIG.title.finalY
-    ]
-  );
-  const titleScale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [PARALLAX_CONFIG.title.initialScale, PARALLAX_CONFIG.title.finalScale]
-  );
-  const titleOpacity = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [
-      PARALLAX_CONFIG.title.initialOpacity,
-      isMobile ? PARALLAX_CONFIG.title.finalOpacityMobile : PARALLAX_CONFIG.title.finalOpacity
-    ]
-  );
-
-  // Dynamic responsive translation Y for Secondary text (ESCAPE)
-  const escapeY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [
-      isMobile ? PARALLAX_CONFIG.escapeText.initialYMobile : PARALLAX_CONFIG.escapeText.initialY,
-      isMobile ? PARALLAX_CONFIG.escapeText.finalYMobile : PARALLAX_CONFIG.escapeText.finalY
-    ]
-  );
-  const escapeScale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [PARALLAX_CONFIG.escapeText.initialScale, PARALLAX_CONFIG.escapeText.finalScale]
-  );
-  const escapeOpacity = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [PARALLAX_CONFIG.escapeText.initialOpacity, PARALLAX_CONFIG.escapeText.finalOpacity]
-  );
-
-  // A subtle fade out for the scroll indicator as user scrolls
-  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
-
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full overflow-visible"
-      style={{ height: PARALLAX_CONFIG.containerHeight }}
-    >
-      {/* Sleek Fading Preloader Mask Screen to guarantee zero text-only rendering states */}
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-slate-950">
+      {/* Sleek Fading Preloader Mask Screen */}
       <div
-        className={`fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center transition-all duration-700 ease-out ${imagesLoaded ? 'opacity-0 pointer-events-none invisible' : 'opacity-100'
-          }`}
+        className={`fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center transition-all duration-700 ease-out ${
+          imagesLoaded ? 'opacity-0 pointer-events-none invisible' : 'opacity-100'
+        }`}
       >
         <span className="text-white font-black text-2xl tracking-[0.25em] uppercase animate-pulse">
           Tripz World
@@ -262,138 +33,93 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Sticky container that locks the scene in the viewport */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-slate-950 flex items-center justify-center">
+      {/* Background Image with a subtle Ken Burns zoom effect on load */}
+      <motion.div 
+        className="absolute inset-0 w-full h-full pointer-events-none z-0"
+        initial={{ scale: 1.1, opacity: 0 }}
+        animate={imagesLoaded ? { scale: 1, opacity: 0.45 } : {}}
+        transition={{ duration: 2.5, ease: "easeOut" }}
+      >
+        <Image
+          src="/activities/large/activity1.jpg"
+          alt="Breathtaking Alps Background"
+          fill
+          sizes="100vw"
+          className="object-cover"
+          priority
+        />
+      </motion.div>
 
-        {/* Layer 1: Background (Clouds) */}
+      {/* Dark & Crimson Gradient Overlays for Air Arabia vibe */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/40 to-slate-950/90 z-1 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-black/20 z-1 pointer-events-none" />
+
+      {/* Hero Content Area */}
+      <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center justify-center h-full max-w-4xl">
         <motion.div
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{
-            scale: cloudScale,
-            y: cloudY,
-            zIndex: 1
-          }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={imagesLoaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+          className="flex flex-col items-center gap-6"
         >
-          <Image
-            src={PARALLAX_CONFIG.clouds.src}
-            alt="Clouds Background"
-            fill
-            sizes="100vw"
-            className="object-cover"
-            priority
-          />
-        </motion.div>
-
-        {/* Layer 2: Text Heading */}
-        <motion.div
-          className="relative flex flex-col items-center text-center text-white px-8 pointer-events-none"
-          style={{
-            y: titleY,
-            scale: titleScale,
-            opacity: titleOpacity,
-            zIndex: 10
-          }}
-        >
-          <h1
-            className="font-black uppercase tracking-tighter leading-none m-0 drop-shadow-2xl selection:bg-primary"
-            style={{
-              fontSize: isMobile ? PARALLAX_CONFIG.title.fontSizeMobile : PARALLAX_CONFIG.title.fontSizeDesktop
-            }}
-          >
-            {PARALLAX_CONFIG.title.text}
-          </h1>
-        </motion.div>
-
-        {/* Layer 3: Foreground (Mountains) */}
-        <motion.div
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{
-            scale: mountainScale,
-            y: mountainY,
-            transformOrigin: 'bottom center',
-            zIndex: 20
-          }}
-        >
-          <Image
-            src={PARALLAX_CONFIG.mountain.src}
-            alt="Mountain Foreground"
-            width={1920}
-            height={1080}
-            className="w-full h-auto absolute bottom-0 left-0 block"
-            priority
-          />
-        </motion.div>
-
-        {/* Layer 3.5: ESCAPE Block Text */}
-        <motion.div
-          className="absolute left-0 right-0 text-center pointer-events-none flex justify-center w-full"
-          style={{
-            y: escapeY,
-            scale: escapeScale,
-            opacity: escapeOpacity,
-            bottom: '22%',
-            zIndex: 25
-          }}
-        >
-          <h2
-            className="font-black uppercase tracking-widest leading-none m-0 text-[#132336] select-none drop-shadow-[0_15px_25px_rgba(0,0,0,0.7)]"
-            style={{
-              fontSize: isMobile ? PARALLAX_CONFIG.escapeText.fontSizeMobile : PARALLAX_CONFIG.escapeText.fontSizeDesktop
-            }}
-          >
-            {PARALLAX_CONFIG.escapeText.text}
-          </h2>
-        </motion.div>
-
-        {/* Layer 4: Emerging Man */}
-        <motion.div
-          className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
-          style={{
-            scale: manScale,
-            y: manY,
-            width: isMobile ? PARALLAX_CONFIG.man.widthMobile : PARALLAX_CONFIG.man.widthDesktop,
-            bottom: isMobile ? PARALLAX_CONFIG.man.bottomOffsetMobile : PARALLAX_CONFIG.man.bottomOffsetDesktop,
-            transformOrigin: 'bottom center',
-            zIndex: 30
-          }}
-        >
-          <Image
-            src={PARALLAX_CONFIG.man.src}
-            alt="Emerging Hiker"
-            width={320}
-            height={480}
-            className="w-full h-auto object-contain"
-            priority
-          />
-        </motion.div>
-
-        {/* Layer 5: Dark overlay at the very bottom of the sticky view for smooth transition */}
-        <div className="absolute bottom-0 left-0 w-full h-[15vh] bg-gradient-to-t from-black to-transparent pointer-events-none z-35" />
-
-        {/* Scroll Cue Indicator */}
-        <motion.div
-          className="absolute bottom-12 flex flex-col items-center gap-2 pointer-events-none z-40"
-          style={{ opacity: indicatorOpacity }}
-        >
-          <span className="text-white/60 text-xs font-semibold tracking-widest uppercase animate-pulse">
-            Scroll to Explore
+          {/* Subtitle / Tagline */}
+          <span className="text-primary font-black tracking-[0.35em] text-xs md:text-sm uppercase bg-primary/10 border border-primary/20 px-4 py-2 rounded-full">
+            ESCAPE
           </span>
-          <div className="w-[24px] h-[40px] rounded-full border-2 border-white/30 flex justify-center items-start p-1.5">
-            <motion.div
-              className="w-1.5 h-1.5 rounded-full bg-white"
-              animate={{
-                y: [0, 16, 0]
-              }}
-              transition={{
-                duration: 1.8,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
+
+          {/* Main Massive Title */}
+          <h1 className="font-black uppercase tracking-tight text-white leading-none m-0 text-[clamp(2.5rem,9vw,7.5rem)] drop-shadow-[0_10px_20px_rgba(0,0,0,0.4)]">
+            TRIPZ WORLD
+          </h1>
+
+          {/* Intro Description */}
+          <p className="max-w-2xl text-white/80 text-sm md:text-lg font-light leading-relaxed mt-2">
+            Your premier partner for bespoke travel and tourism. We curate unforgettable global escapes, heritage journeys, and wilderness safaris tailored specifically to your dreams.
+          </p>
+
+          {/* Call to Actions */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <Link
+              href="/#destinations"
+              className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold uppercase tracking-wider text-xs md:text-sm rounded-full shadow-lg hover:scale-105 transition-all flex items-center gap-2 group cursor-pointer"
+            >
+              Explore Destinations 
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/#contact"
+              className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40 font-bold uppercase tracking-wider text-xs md:text-sm rounded-full transition-all hover:scale-105 cursor-pointer backdrop-blur-md"
+            >
+              Contact Us
+            </Link>
           </div>
         </motion.div>
-
       </div>
-    </div>
+
+      {/* Static Scroll Cue Indicator */}
+      <motion.div
+        className="absolute bottom-12 flex flex-col items-center gap-2 pointer-events-none z-20"
+        initial={{ opacity: 0 }}
+        animate={imagesLoaded ? { opacity: 1 } : {}}
+        transition={{ duration: 1, delay: 1.2 }}
+      >
+        <span className="text-white/40 text-[10px] font-semibold tracking-widest uppercase animate-pulse">
+          Scroll to Explore
+        </span>
+        <div className="w-[20px] h-[34px] rounded-full border border-white/25 flex justify-center items-start p-1">
+          <motion.div
+            className="w-1 h-1 rounded-full bg-white/60"
+            animate={{
+              y: [0, 12, 0]
+            }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
+      </motion.div>
+    </section>
   );
 }

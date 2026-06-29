@@ -9,19 +9,19 @@ import { ArrowRight, Star, MapPin, Calendar, DollarSign } from 'lucide-react';
 // --- EXPERIENCE TABS CONFIGURATION ---
 const TABS_DATA = [
   {
-    id: 'pledge',
-    label: 'Our Personal Pledge',
-    text: 'We give you our unwavering commitment to managing every aspect of travel from the moment you speak to us on the phone to the moment you arrive home. As a member of our own family, your comfort, safety, and enjoyment are at the forefront of everything we do and every detail of your adventure we plan for you.'
+    id: 'custom',
+    label: 'Tailored Planning',
+    text: 'At TRIPZ WORLD, we believe your journey should be as unique as you are. Our travel designers collaborate closely with you to understand your preferences, creating custom daily schedules, select lodging, and unique excursions that fit your budget, pace, and interests perfectly.'
   },
   {
-    id: 'extraordinary',
-    label: 'Creating the Extraordinary',
-    text: 'We do not believe in off-the-shelf vacations. Every journey is curated to match your specific taste, pacing, and visual aspirations. We orchestrate private viewings, exclusive villa access, and helicopter transfers to make your escape legendary, ensuring no two itineraries are ever alike.'
+    id: 'support',
+    label: '24/7 Concierge',
+    text: 'From takeoff to landing, you are never alone. Our dedicated support team is available around the clock to handle flight adjustments, local transport requests, and last-minute reservations. Travel with absolute peace of mind knowing that TRIPZ WORLD has your back every mile of the way.'
   },
   {
-    id: 'knowledgeable',
-    label: 'Knowledgeable',
-    text: 'Our travel architects possess deep localized expertise, having explored the hidden corners of over 80 countries. We provide 24/7 concierge support and insider access to elite properties, Michelin-star tables, and private local guides, turning travel into stories worth remembering forever.'
+    id: 'heritage',
+    label: 'Authentic Connections',
+    text: 'Unlock the true spirit of each destination through our curated heritage and cultural experiences. We connect you with local families, traditional artisans, and expert storytellers in Kerala, India, and the UAE, allowing you to discover the stories, culinary traditions, and hidden gems that mainstream tourists miss.'
   }
 ];
 
@@ -79,7 +79,7 @@ const DESTINATIONS_DATA = [
 ];
 
 export default function Destinations() {
-  const [activeTab, setActiveTab] = useState('pledge');
+  const [activeTab, setActiveTab] = useState('custom');
 
   return (
     <section id="destinations" className="min-h-screen bg-cream text-charcoal py-24 px-6 md:px-12 relative overflow-hidden">
@@ -87,10 +87,10 @@ export default function Destinations() {
       {/* 1. Personalized and Extraordinary Experiences Section */}
       <div className="container mx-auto max-w-6xl mb-24 text-center">
         <span className="text-primary text-xs md:text-sm font-bold uppercase tracking-widest block mb-4">
-          Why Our Guests Keep Wanting More
+          Crafted for the Modern Explorer
         </span>
         <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-charcoal mb-10 leading-none">
-          Personalized and Extraordinary Experiences
+          Bespoke Journeys, Infinite Memories
         </h2>
 
         {/* Tab Headers */}
@@ -146,7 +146,7 @@ export default function Destinations() {
               The World is Waiting
             </h2>
             <p className="max-w-xl text-charcoal/70 text-sm md:text-base font-light leading-relaxed">
-              Explore World specializes in authentic tours to the most sought-after destinations. With more than 25 itineraries to choose from, your dream vacation is within reach.
+              TRIPZ WORLD specializes in authentic tours to the most sought-after destinations. With more than 25 itineraries to choose from, your dream vacation is within reach.
             </p>
           </div>
           <div>
@@ -162,33 +162,34 @@ export default function Destinations() {
         {/* Custom Destinations Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {DESTINATIONS_DATA.map((dest, idx) => (
-            <motion.div
-              key={dest.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="group relative h-[450px] overflow-hidden rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-charcoal/5 cursor-pointer bg-white"
-            >
-              <Image
-                src={dest.image}
-                alt={dest.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent opacity-60 z-10" />
-              
-              <div className="absolute bottom-8 left-8 right-8 z-20 text-white">
-                <div className="flex items-center gap-1.5 mb-2 text-white/70">
-                  <MapPin className="w-4 h-4 text-primary" />
-                  <span className="text-xs uppercase tracking-widest font-semibold">{dest.location}</span>
+            <Link href="/activities" key={dest.id} className="block group">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="relative h-[450px] overflow-hidden rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-charcoal/5 cursor-pointer bg-white"
+              >
+                <Image
+                  src={dest.image}
+                  alt={dest.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent opacity-60 z-10" />
+                
+                <div className="absolute bottom-8 left-8 right-8 z-20 text-white">
+                  <div className="flex items-center gap-1.5 mb-2 text-white/70">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span className="text-xs uppercase tracking-widest font-semibold">{dest.location}</span>
+                  </div>
+                  <h3 className="text-2xl font-black uppercase tracking-tight leading-none group-hover:text-primary transition-colors">
+                    {dest.title}
+                  </h3>
                 </div>
-                <h3 className="text-2xl font-black uppercase tracking-tight leading-none group-hover:text-primary transition-colors">
-                  {dest.title}
-                </h3>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </div>
@@ -204,12 +205,12 @@ export default function Destinations() {
               Featured Journeys
             </h2>
             <p className="max-w-xl text-charcoal/70 text-sm md:text-base font-light leading-relaxed">
-              We have crafted different tours to offer the perfect experience for each of Explore World’s travelers. Browse our tour types or learn more about what experience is right for you.
+              We have crafted different tours to offer the perfect experience for each of TRIPZ WORLD’s travelers. Browse our tour types or learn more about what experience is right for you.
             </p>
           </div>
           <div>
             <Link
-              href="/booking"
+              href="/activities"
               className="inline-flex items-center gap-2 font-black uppercase text-xs md:text-sm tracking-widest text-primary hover:text-primary-dark transition-colors group"
             >
               View All Tours <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
@@ -226,7 +227,7 @@ export default function Destinations() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className="bg-white rounded-3xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.03)] border border-charcoal/5 flex flex-col group cursor-pointer hover:shadow-xl transition-all duration-300"
+              className="bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] border border-charcoal/10 flex flex-col group cursor-pointer hover:shadow-xl hover:border-primary/20 transition-all duration-300"
             >
               <div className="relative h-[250px] w-full overflow-hidden">
                 <Image
@@ -268,9 +269,12 @@ export default function Destinations() {
                     )}
                   </div>
                   
-                  <div className="inline-flex items-center gap-1.5 font-bold uppercase text-[11px] tracking-wider text-charcoal/80 group-hover:text-primary mt-2">
-                    View Details <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
+                  <Link 
+                    href="/#contact"
+                    className="mt-4 w-full py-3 bg-primary hover:bg-primary-dark text-white font-bold uppercase tracking-wider text-xs rounded-xl shadow-md hover:scale-[1.02] active:scale-100 transition-all text-center block"
+                  >
+                    Enquire Now
+                  </Link>
                 </div>
               </div>
             </motion.div>

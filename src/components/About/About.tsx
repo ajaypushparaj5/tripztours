@@ -1,14 +1,5 @@
 "use client";
 
-import { motion } from 'framer-motion';
-
-const STATS = [
-  { value: '15+', label: 'Years of Travel Architecture' },
-  { value: '80+', label: 'Countries Explored Globally' },
-  { value: '98%', label: 'Return Visionary Rate' },
-  { value: '24/7', label: 'Elite Concierge Service' }
-];
-
 export default function About() {
   return (
     <section id="about" className="min-h-screen w-full flex items-center justify-center bg-cream text-charcoal py-24 px-6 md:px-12 relative overflow-hidden border-t border-charcoal/10">
@@ -32,7 +23,7 @@ export default function About() {
           </p>
         </div>
 
-        {/* Right Column: Narrative and Statistics Cards Grid */}
+        {/* Right Column: Narrative */}
         <div className="w-full lg:w-7/12 flex flex-col gap-12 text-left">
 
           {/* Narrative description */}
@@ -45,27 +36,6 @@ export default function About() {
             <p>
               At TripzWorld, we believe that travel is more than just reaching a destination. It's about creating unforgettable memories, experiencing new cultures, and connecting with the world around us. Guided by our commitment to quality, trust, and customer satisfaction, we strive to make every journey truly special.
             </p>
-          </div>
-
-          {/* Grid of elegant statistics */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
-            {STATS.map((stat, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white border border-charcoal/5 p-6 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-md transition-all group cursor-pointer"
-              >
-                <div className="text-4xl md:text-5xl font-black text-primary group-hover:scale-105 transition-transform duration-300 origin-left">
-                  {stat.value}
-                </div>
-                <div className="text-xs md:text-sm font-semibold uppercase tracking-wider text-charcoal/60 mt-2 leading-snug">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
           </div>
 
         </div>
