@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 
 export default function WhatsAppButton() {
-  const phoneNumber = "919876543210"; // Tripz contact number
+  const phoneNumber = "919292007973"; // Tripz contact number
   const message = encodeURIComponent("Hi Tripz World! I'm interested in booking a custom travel package. Could you help me with details?");
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 

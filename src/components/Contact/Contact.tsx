@@ -37,7 +37,7 @@ export default function Contact() {
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40">Call Us</span>
-                <span className="text-sm font-bold text-charcoal/80">+91 98765 43210</span>
+                <span className="text-sm font-bold text-charcoal/80">+91 9292007973</span>
               </div>
             </motion.div>
 
@@ -50,7 +50,7 @@ export default function Contact() {
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase font-bold tracking-widest text-charcoal/40">Email Us</span>
-                <span className="text-sm font-bold text-charcoal/80">hello@tripztours.com</span>
+                <span className="text-sm font-bold text-charcoal/80">info@tripzworld.com</span>
               </div>
             </motion.div>
 

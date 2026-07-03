@@ -6,25 +6,26 @@ import { ChevronLeft, ChevronRight, Camera } from 'lucide-react';
 import Image from 'next/image';
 
 const IMAGES = [
-  "/tz4.jpg", // Kerala backwaters
-  "/tz1.jpg", // Munnar tea gardens
+  "/tz1.jpg", // Kerala backwaters
+  "/tz4.jpg", // Munnar tea gardens
   "/tz2.jpg", // adv
-  "/aboutus1.jpg", // travel architecture landscape
+  "/misty.jpg", // travel architecture landscape
 ];
 
 const TITLES = [
   "Serene Backwaters",
-  "Misty Tea Estates",
+  "Paradise on earth",
   "Hiking Trails",
-  "Scenic Horizons"
+  "Misty tea estate"
 ];
 
 const DESCRIPTIONS = [
   "Drifting peacefully through the emerald backwaters of South India, experiencing timeless coastal life.",
-  "Wandering into the vast, mist-draped peaks of emerald tea fields, breathing the fresh aroma of Munnar.",
+  "Savoring the quiet luxury of global destinations where the land meets the sky in perfect harmony.",
   "Challenging the elements, ascending trails that reward you with dramatic, sweeping views of absolute raw nature.",
-  "Savoring the quiet luxury of global destinations where the land meets the sky in perfect harmony."
+  "Wandering into the vast, mist-draped peaks of emerald tea fields, breathing the fresh aroma of Munnar."
 ];
+
 
 export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,14 +40,14 @@ export default function Gallery() {
 
   return (
     <section id="gallery" className="min-h-screen w-full flex flex-col justify-center items-center bg-cream text-charcoal py-24 px-6 md:px-12 relative overflow-hidden border-t border-charcoal/10">
-      
+
       {/* Editorial Header */}
       <div className="container mx-auto max-w-5xl mb-12 text-center flex flex-col items-center">
         <div className="inline-flex items-center gap-2 mb-3 bg-primary/10 text-primary px-4 py-2 rounded-full border border-primary/20">
           <Camera className="w-4 h-4" />
           <span className="text-xs uppercase tracking-widest font-black">Visual Journeys</span>
         </div>
-        
+
         <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none text-charcoal mb-4">
           Capturing the Soul
         </h2>
@@ -57,7 +58,7 @@ export default function Gallery() {
 
       {/* Main Canvas Slider Wrapper */}
       <div className="w-full max-w-5xl relative h-[400px] md:h-[550px] rounded-3xl overflow-hidden shadow-2xl border border-charcoal/10 bg-charcoal/5">
-        
+
         {/* Canvas Image Slide */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -135,9 +136,8 @@ export default function Gallery() {
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`relative w-14 h-14 md:w-20 md:h-20 rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer shadow-sm ${
-                isActive ? 'scale-110 ring-4 ring-primary' : 'opacity-40 hover:opacity-80'
-              }`}
+              className={`relative w-14 h-14 md:w-20 md:h-20 rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer shadow-sm ${isActive ? 'scale-110 ring-4 ring-primary' : 'opacity-40 hover:opacity-80'
+                }`}
               aria-label={`Go to slide ${idx + 1}`}
             >
               <Image

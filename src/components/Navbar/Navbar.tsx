@@ -62,13 +62,13 @@ export default function Navbar() {
             href="/"
             className="flex items-center gap-2 group focus:outline-none"
           >
-            <div className="relative w-20 h-20 rounded-full overflow-hidden border border-white/15 shadow-md transition-all duration-300 group-hover:scale-105">
+            <div className="relative w-36 h-14 rounded-xl overflow-hidden border border-white/15 bg-white shadow-md transition-all duration-300 group-hover:scale-105 flex items-center justify-center">
               <Image
-                src="/tripzlogo.jpg"
+                src="/tripzlogo.png"
                 alt="Tripz World Logo"
                 fill
-                sizes="80px"
-                className="object-cover scale-[1.38] origin-center"
+                sizes="144px"
+                className="object-contain p-0 scale-[1.22]"
                 priority
               />
             </div>

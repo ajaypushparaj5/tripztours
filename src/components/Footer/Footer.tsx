@@ -16,13 +16,13 @@ export default function Footer() {
           {/* Column 1: Brand & Contact Info */}
           <div className="lg:col-span-4 flex flex-col gap-6 text-left">
             <Link href="/" className="flex items-center gap-2 group w-fit focus:outline-none">
-              <div className="relative w-24 h-24 rounded-full overflow-hidden border border-white/15 shadow-lg transition-transform duration-300 group-hover:scale-105">
+              <div className="relative w-44 h-16 rounded-xl overflow-hidden border border-white/15 bg-white shadow-lg transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
                 <Image
-                  src="/tripzlogo.jpg"
+                  src="/tripzlogo.png"
                   alt="Tripz World Logo"
                   fill
-                  sizes="96px"
-                  className="object-cover scale-[1.38] origin-center"
+                  sizes="176px"
+                  className="object-contain p-0 scale-[1.22]"
                 />
               </div>
             </Link>
@@ -34,15 +34,15 @@ export default function Footer() {
             <div className="flex flex-col gap-3 mt-2 text-sm">
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-primary shrink-0" />
-                <span className="font-medium">+91 98765 43210</span>
+                <span className="font-medium">+91 9292007973</span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary shrink-0" />
-                <span className="font-medium">hello@tripztours.com</span>
+                <span className="font-medium">info@tripzworld.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-primary shrink-0" />
-                <span className="font-medium">Cochin, Kerala, India</span>
+                <span className="font-medium">Kerala, India</span>
               </div>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function Footer() {
         {/* Bottom Bar: Copyright & Socials */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-light text-white/40">
           <div>
-            &copy; {new Date().getFullYear()} Tripz World. All Rights Reserved. Cochin, Kerala.
+            &copy; {new Date().getFullYear()} Tripz World. All Rights Reserved. Kerala, India.
           </div>
           
           <div className="flex items-center gap-4">

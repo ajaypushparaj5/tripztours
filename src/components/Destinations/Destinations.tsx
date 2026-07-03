@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Star, MapPin, Calendar, DollarSign } from 'lucide-react';
+import { ArrowRight, Star, MapPin, Calendar } from 'lucide-react';
 
 // --- EXPERIENCE TABS CONFIGURATION ---
 const TABS_DATA = [
@@ -29,30 +29,21 @@ const TABS_DATA = [
 const JOURNEYS_DATA = [
   {
     id: 1,
-    title: 'Magical India',
-    days: '11 Days',
-    priceText: 'Prices From $6,749 ',
-    discountedPrice: '$5,499 with Air',
-    image: '/tz4.jpg',
-    tag: 'Culture & Heritage'
+    title: 'Discover Thailand – The Land of Smiles',
+    days: 'Flexible',
+    priceText: 'Contact Us for Pricing',
+    discountedPrice: '',
+    image: '/activities/large/activity1.jpg',
+    tag: 'Beaches & Temples'
   },
   {
     id: 2,
-    title: 'Amazing Portugal',
-    days: '10 Days',
+    title: 'UAE Activities & Excursions',
+    days: 'Flexible',
     priceText: 'Contact Us for Pricing',
     discountedPrice: '',
-    image: '/tz2.jpg',
-    tag: 'Coastal Escape'
-  },
-  {
-    id: 3,
-    title: 'Ultimate South Africa',
-    days: '10 Days',
-    priceText: 'Prices From $8,449 ',
-    discountedPrice: '$7,199',
-    image: '/aboutus1.jpg',
-    tag: 'Wildlife & Safari'
+    image: '/activities/large/activity2.jpg',
+    tag: 'Theme Parks & Safaris'
   }
 ];
 
@@ -68,7 +59,7 @@ const DESTINATIONS_DATA = [
     id: 'dubai',
     title: 'Arabian Dunes & Oasis',
     location: 'Dubai Desert, UAE',
-    image: '/activities/large/activity2.jpg'
+    image: '/activity2.jpg'
   },
   {
     id: 'kerala',
@@ -219,7 +210,7 @@ export default function Destinations() {
         </div>
 
         {/* Featured Journeys Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-8">
           {JOURNEYS_DATA.map((journey, idx) => (
             <motion.div
               key={journey.id}
@@ -227,14 +218,14 @@ export default function Destinations() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className="bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] border border-charcoal/10 flex flex-col group cursor-pointer hover:shadow-xl hover:border-primary/20 transition-all duration-300"
+              className="bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] border border-charcoal/10 flex flex-col group cursor-pointer hover:shadow-xl hover:border-primary/20 transition-all duration-300 w-full"
             >
               <div className="relative h-[250px] w-full overflow-hidden">
                 <Image
                   src={journey.image}
                   alt={journey.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
                 />
                 
