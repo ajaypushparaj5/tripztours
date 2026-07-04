@@ -59,7 +59,7 @@ const DESTINATIONS_DATA = [
     id: 'dubai',
     title: 'Arabian Dunes & Oasis',
     location: 'Dubai Desert, UAE',
-    image: '/activity2.jpg'
+    image: '/activities/large/activity2.jpg'
   },
   {
     id: 'kerala',
