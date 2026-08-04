@@ -188,6 +188,9 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const spring = { type: 'spring' as const, stiffness: 400, damping: 26 };
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -225,19 +228,24 @@ export default function Navbar() {
   const showTranslucentNavbar = !hasDarkHeader || scrolled || isOpen;
 
   const navItemClass = 'text-white/80 font-bold hover:text-white transition-colors text-[14px] tracking-wider uppercase relative group';
-  const underlineClass = 'absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full';
+  const underlineClass = 'absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full';
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${showTranslucentNavbar
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${showTranslucentNavbar
         ? 'py-4 bg-[#38a08f]/50 backdrop-blur-md shadow-sm border-b border-white/10'
         : 'py-6 bg-transparent border-b border-transparent shadow-none'
         }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center relative z-50">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center gap-2 group focus:outline-none">
-            <div className="relative w-36 h-14 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+          <Link href="/" className="flex items-center gap-2 focus:outline-none">
+            <motion.div
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              transition={spring}
+              className="relative w-36 h-14 flex items-center justify-center"
+            >
               <Image
                 src="/tripzlogo1.png"
                 alt="Tripz World Logo"
@@ -246,7 +254,7 @@ export default function Navbar() {
                 className="object-contain p-0 scale-[1.22]"
                 priority
               />
-            </div>
+            </motion.div>
           </Link>
         </div>
 
@@ -273,24 +281,48 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <button
-          className="lg:hidden focus:outline-none z-50 relative cursor-pointer border-none bg-transparent p-1 outline-none ring-0 active:scale-90 transition-all duration-200 text-white hover:text-white/80"
+        <motion.button
+          whileTap={{ scale: 0.85 }}
+          transition={spring}
+          className="lg:hidden focus:outline-none z-50 relative cursor-pointer border-none bg-transparent p-1 outline-none ring-0 text-white hover:text-white/80"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
-          {isOpen ? (
-            <X className="w-7 h-7 transition-transform duration-300 rotate-0 hover:rotate-90" />
-          ) : (
-            <Menu className="w-7 h-7 transition-transform duration-300" />
-          )}
-        </button>
+          <AnimatePresence mode="wait" initial={false}>
+            {isOpen ? (
+              <motion.span
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={spring}
+                className="block"
+              >
+                <X className="w-7 h-7" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="menu"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={spring}
+                className="block"
+              >
+                <Menu className="w-7 h-7" />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.button>
       </div>
 
-      <div
-        className={`absolute top-full left-0 w-full bg-[#38a08f]/75 backdrop-blur-md border-b border-white/10 z-40 flex flex-col px-8 py-6 gap-4 shadow-2xl transition-all duration-300 ease-in-out ${isOpen
-          ? 'opacity-100 translate-y-0 pointer-events-auto visible'
-          : 'opacity-0 -translate-y-4 pointer-events-none invisible'
-          } lg:hidden`}
+      <motion.div
+        initial={false}
+        animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -16 }}
+        transition={spring}
+        style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+        aria-hidden={!isOpen}
+        className="absolute top-full left-0 w-full bg-[#38a08f]/75 backdrop-blur-md border-b border-white/10 z-40 flex flex-col px-8 py-6 gap-4 shadow-2xl lg:hidden"
       >
         <a
           href="/#destinations"
@@ -327,7 +359,7 @@ export default function Navbar() {
         >
           Activities
         </Link>
-      </div>
-    </nav >
+      </motion.div>
+    </nav>
   );
 }
