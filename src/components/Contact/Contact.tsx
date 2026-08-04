@@ -2,8 +2,29 @@
 
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { sendContactMessage, type ContactFormState } from '@/app/actions/contact';
+
+const initialState: ContactFormState = { status: 'idle', message: '' };
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="w-full bg-transparent border border-primary hover:bg-primary active:bg-primary text-primary hover:text-white active:text-white font-black uppercase tracking-widest py-4 px-8 rounded-xl transition-all duration-300 text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {pending ? 'Sending...' : 'Send Message'} <Send className="w-4 h-4" />
+    </button>
+  );
+}
 
 export default function Contact() {
+  const [state, formAction] = useActionState(sendContactMessage, initialState);
+
   return (
     <section id="contact" className="min-h-screen w-full flex justify-center items-center bg-cream text-charcoal py-24 px-6 md:px-12 relative overflow-hidden border-t border-charcoal/10">
 
@@ -72,16 +93,28 @@ export default function Contact() {
 
         {/* Right Side: Editorial White Form Card */}
         <div className="w-full lg:w-1/2">
-          <form className="bg-white border border-charcoal/10 p-8 md:p-12 rounded-3xl flex flex-col gap-6 shadow-xl text-left">
+          <form action={formAction} className="bg-white border border-charcoal/10 p-8 md:p-12 rounded-3xl flex flex-col gap-6 shadow-xl text-left">
             <div className="flex flex-col gap-2">
               <span className="text-primary text-[10px] font-black uppercase tracking-widest">Bespoke Inquiries</span>
               <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-charcoal">Send a Message</h3>
             </div>
 
+            {/* Honeypot: hidden from real visitors, catches basic bots */}
+            <input
+              type="text"
+              name="company"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute left-[-9999px] w-px h-px opacity-0"
+            />
+
             <div className="flex flex-col gap-2 mt-2">
               <label className="text-xs font-black text-charcoal/50 uppercase tracking-widest">Your Name</label>
               <input
                 type="text"
+                name="name"
+                required
                 className="w-full bg-transparent border-b border-charcoal/20 pb-2 text-base focus:outline-none focus:border-primary transition-colors text-charcoal placeholder-charcoal/30 font-medium"
                 placeholder="John Doe"
               />
@@ -91,6 +124,8 @@ export default function Contact() {
               <label className="text-xs font-black text-charcoal/50 uppercase tracking-widest">Email Address</label>
               <input
                 type="email"
+                name="email"
+                required
                 className="w-full bg-transparent border-b border-charcoal/20 pb-2 text-base focus:outline-none focus:border-primary transition-colors text-charcoal placeholder-charcoal/30 font-medium"
                 placeholder="john@example.com"
               />
@@ -99,11 +134,22 @@ export default function Contact() {
             <div className="flex flex-col gap-2 mt-2">
               <label className="text-xs font-black text-charcoal/50 uppercase tracking-widest">Your Message</label>
               <textarea
+                name="message"
+                required
                 rows={4}
                 className="w-full bg-transparent border-b border-charcoal/20 pb-2 text-base focus:outline-none focus:border-primary transition-colors text-charcoal placeholder-charcoal/30 resize-none font-medium"
                 placeholder="Tell us about your dream trip..."
               ></textarea>
             </div>
+
+            {state.status !== 'idle' && (
+              <p
+                aria-live="polite"
+                className={`text-sm font-bold ${state.status === 'success' ? 'text-green-600' : 'text-primary'}`}
+              >
+                {state.message}
+              </p>
+            )}
 
             <motion.div
               whileHover={{ scale: 1.01 }}
@@ -111,12 +157,7 @@ export default function Contact() {
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
               className="w-full mt-6"
             >
-              <button
-                type="button"
-                className="w-full bg-transparent border border-primary hover:bg-primary active:bg-primary text-primary hover:text-white active:text-white font-black uppercase tracking-widest py-4 px-8 rounded-xl transition-all duration-300 text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer shadow-sm"
-              >
-                Send Message <Send className="w-4 h-4" />
-              </button>
+              <SubmitButton />
             </motion.div>
           </form>
         </div>
