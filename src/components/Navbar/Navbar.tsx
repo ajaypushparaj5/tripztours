@@ -237,26 +237,13 @@ export default function Navbar() {
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center relative z-50">
         <div className="flex items-center">
           <Link href="/" className="flex items-center gap-2 group focus:outline-none">
-            <div
-              className={`relative w-36 h-14 rounded-xl overflow-hidden border transition-all duration-500 group-hover:scale-105 flex items-center justify-center ${showTranslucentNavbar
-                ? 'border-white/0 bg-white/0 shadow-none'
-                : 'border-white/15 bg-white shadow-md'
-                }`}
-            >
-              <Image
-                src="/tripzlogo.png"
-                alt="Tripz World Logo"
-                fill
-                sizes="144px"
-                className={`object-contain p-0 scale-[1.22] transition-opacity duration-500 ${showTranslucentNavbar ? 'opacity-0' : 'opacity-100'}`}
-                priority
-              />
+            <div className="relative w-36 h-14 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
               <Image
                 src="/tripzlogo1.png"
                 alt="Tripz World Logo"
                 fill
                 sizes="144px"
-                className={`object-contain p-0 scale-[1.22] transition-opacity duration-500 ${showTranslucentNavbar ? 'opacity-100' : 'opacity-0'}`}
+                className="object-contain p-0 scale-[1.22]"
                 priority
               />
             </div>
