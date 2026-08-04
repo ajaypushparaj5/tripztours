@@ -13,13 +13,13 @@ export default function Footer() {
 
       <div className="container mx-auto max-w-6xl relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-white/10">
-          
+
           {/* Column 1: Brand & Contact Info */}
           <div className="lg:col-span-4 flex flex-col gap-6 text-left">
             <Link href="/" className="flex items-center gap-2 group w-fit focus:outline-none">
-              <div className="relative w-44 h-16 rounded-xl overflow-hidden border border-white/15 bg-white shadow-lg transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
+              <div className="relative w-44 h-16 rounded-xl overflow-hidden border border-transparent bg-white/0 shadow-lg transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
                 <Image
-                  src="/tripzlogo.png"
+                  src="/tripzlogo1.png"
                   alt="Tripz World Logo"
                   fill
                   sizes="176px"
@@ -27,7 +27,7 @@ export default function Footer() {
                 />
               </div>
             </Link>
-            
+
             <p className="text-sm font-light text-white/60 leading-relaxed max-w-sm">
               Architects of unforgettable global escapes. We curate luxury, culture, and adventure across the world's most breathtaking destinations.
             </p>
@@ -108,29 +108,29 @@ export default function Footer() {
           <div>
             &copy; {new Date().getFullYear()} Tripz World. All Rights Reserved. Kerala, India.
           </div>
-          
+
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-primary transition-colors p-2 bg-white/5 rounded-lg border border-white/5 hover:border-primary/20 flex items-center justify-center" aria-label="Instagram">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
               </svg>
             </a>
             <a href="#" className="hover:text-primary transition-colors p-2 bg-white/5 rounded-lg border border-white/5 hover:border-primary/20 flex items-center justify-center" aria-label="Facebook">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
               </svg>
             </a>
             <a href="#" className="hover:text-primary transition-colors p-2 bg-white/5 rounded-lg border border-white/5 hover:border-primary/20 flex items-center justify-center" aria-label="Twitter">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
               </svg>
             </a>
             <a href="#" className="hover:text-primary transition-colors p-2 bg-white/5 rounded-lg border border-white/5 hover:border-primary/20 flex items-center justify-center" aria-label="Youtube">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17z"/>
-                <polygon points="10 15 15 12 10 9"/>
+                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17z" />
+                <polygon points="10 15 15 12 10 9" />
               </svg>
             </a>
           </div>
