@@ -148,13 +148,13 @@ export default function ActivitiesPage() {
                     <div className="flex flex-wrap gap-4 mt-2 w-full">
                       <Link 
                         href="/#contact" 
-                        className="px-8 py-4 bg-primary text-white hover:bg-primary-dark font-bold uppercase tracking-wider text-sm rounded-full transition-all shadow-lg hover:-translate-y-0.5 active:translate-y-0 text-center flex-1 sm:flex-initial"
+                        className="w-full sm:w-auto px-8 py-4 bg-transparent border border-primary text-primary hover:bg-primary active:bg-primary hover:text-white active:text-white font-bold uppercase tracking-wider text-sm rounded-full hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm text-center block flex-1 sm:flex-initial"
                       >
                         Book Escape
                       </Link>
                       <button
                         onClick={() => toggleExpand(activity.id)}
-                        className="px-6 py-4 border border-charcoal/20 hover:border-primary hover:text-primary text-charcoal font-bold uppercase tracking-wider text-sm rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer focus:outline-none flex-1 sm:flex-initial"
+                        className="w-full sm:w-auto px-6 py-4 border border-charcoal/20 hover:border-primary hover:text-primary text-charcoal font-bold uppercase tracking-wider text-sm rounded-full hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer focus:outline-none flex-1 sm:flex-initial"
                       >
                         {isExpanded ? 'Hide Details' : 'Explore Details'}
                         <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
@@ -262,13 +262,13 @@ export default function ActivitiesPage() {
                               <div className="flex flex-wrap gap-4">
                                 <Link 
                                   href="/#contact" 
-                                  className="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-bold uppercase tracking-wider text-xs rounded-full transition-all text-center flex items-center gap-1"
+                                  className="px-6 py-3 bg-transparent border border-white hover:bg-primary active:bg-primary hover:border-primary active:border-primary text-white font-bold uppercase tracking-wider text-xs rounded-full hover:scale-105 active:scale-95 transition-all duration-300 text-center flex items-center gap-1 cursor-pointer"
                                 >
                                   Enquire Now <ArrowRight className="w-3.5 h-3.5" />
                                 </Link>
                                 <Link 
                                   href="/#contact" 
-                                  className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold uppercase tracking-wider text-xs rounded-full transition-all text-center border border-white/10"
+                                  className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold uppercase tracking-wider text-xs rounded-full hover:scale-105 active:scale-95 transition-all duration-300 text-center border border-white/10 block cursor-pointer"
                                 >
                                   Customize Your Trip
                                 </Link>
@@ -304,17 +304,20 @@ export default function ActivitiesPage() {
                                 {/* Category Dropdown / Buttons */}
                                 <div className="flex gap-2 overflow-x-auto pb-1 sm:pb-0">
                                   {['All', 'City Tours', 'Combos & Theme Parks', 'Cruises & Safaris'].map((category) => (
-                                    <button
+                                    <motion.button
                                       key={category}
                                       onClick={() => setSelectedCategory(category)}
-                                      className={`px-4 py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                                      whileHover={{ scale: 1.03 }}
+                                      whileTap={{ scale: 0.97 }}
+                                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                      className={`px-4 py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-wider transition-all duration-300 whitespace-nowrap cursor-pointer ${
                                         selectedCategory === category
-                                          ? 'bg-primary text-white shadow-md'
+                                          ? 'border border-primary text-primary bg-transparent shadow-sm'
                                           : 'bg-white text-charcoal/60 hover:text-charcoal border border-charcoal/10'
                                       }`}
                                     >
                                       {category === 'All' ? 'All Tours' : category}
-                                    </button>
+                                    </motion.button>
                                   ))}
                                 </div>
                               </div>
@@ -401,7 +404,7 @@ export default function ActivitiesPage() {
 
                                   <Link 
                                     href="/#contact" 
-                                    className="mt-6 w-full py-3 bg-primary/5 hover:bg-primary text-primary hover:text-white font-black uppercase tracking-widest text-[10px] rounded-xl transition-all text-center block border border-primary/10 hover:shadow-md cursor-pointer"
+                                    className="w-full mt-6 py-3 bg-transparent border border-primary/25 hover:bg-primary active:bg-primary text-primary hover:text-white active:text-white font-black uppercase tracking-widest text-[10px] rounded-xl hover:scale-[1.02] active:scale-98 transition-all duration-300 text-center block cursor-pointer shadow-sm"
                                   >
                                     Enquire Now
                                   </Link>
@@ -459,7 +462,7 @@ export default function ActivitiesPage() {
           </p>
           <Link 
             href="/#contact" 
-            className="mt-4 px-10 py-5 bg-primary text-white hover:bg-primary-dark font-bold uppercase tracking-wider text-sm rounded-full transition-all shadow-lg"
+            className="mt-4 px-10 py-5 bg-transparent border border-primary text-primary hover:bg-primary active:bg-primary hover:text-white active:text-white font-bold uppercase tracking-wider text-sm rounded-full hover:scale-105 active:scale-95 transition-all duration-300 shadow-md block text-center"
           >
             Consult Our Architects
           </Link>

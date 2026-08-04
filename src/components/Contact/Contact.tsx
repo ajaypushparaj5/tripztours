@@ -105,12 +105,19 @@ export default function Contact() {
               ></textarea>
             </div>
 
-            <button
-              type="button"
-              className="mt-6 bg-primary hover:bg-primary-dark text-white font-black uppercase tracking-widest py-4 px-8 rounded-xl hover:scale-[1.01] hover:shadow-lg active:scale-100 transition-all w-full text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer shadow-md"
+            <motion.div
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="w-full mt-6"
             >
-              Send Message <Send className="w-4 h-4" />
-            </button>
+              <button
+                type="button"
+                className="w-full bg-transparent border border-primary hover:bg-primary active:bg-primary text-primary hover:text-white active:text-white font-black uppercase tracking-widest py-4 px-8 rounded-xl transition-all duration-300 text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+              >
+                Send Message <Send className="w-4 h-4" />
+              </button>
+            </motion.div>
           </form>
         </div>
 

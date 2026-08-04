@@ -109,20 +109,26 @@ export default function Gallery() {
 
           {/* Navigation Controls in Canvas Frame */}
           <div className="flex gap-4 self-end md:self-auto pointer-events-auto">
-            <button
+            <motion.button
               onClick={prevSlide}
-              className="p-3 rounded-full bg-white/10 hover:bg-primary text-white transition-all backdrop-blur-md border border-white/20 hover:border-primary active:scale-95 cursor-pointer shadow-md"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="p-3 rounded-full bg-white/10 hover:bg-primary text-white transition-all duration-300 backdrop-blur-md border border-white/20 hover:border-primary cursor-pointer shadow-md flex items-center justify-center"
               aria-label="Previous Slide"
             >
               <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={nextSlide}
-              className="p-3 rounded-full bg-white/10 hover:bg-primary text-white transition-all backdrop-blur-md border border-white/20 hover:border-primary active:scale-95 cursor-pointer shadow-md"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="p-3 rounded-full bg-white/10 hover:bg-primary text-white transition-all duration-300 backdrop-blur-md border border-white/20 hover:border-primary cursor-pointer shadow-md flex items-center justify-center"
               aria-label="Next Slide"
             >
               <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -133,10 +139,13 @@ export default function Gallery() {
         {IMAGES.map((img, idx) => {
           const isActive = idx === currentIndex;
           return (
-            <button
+            <motion.button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`relative w-14 h-14 md:w-20 md:h-20 rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer shadow-sm ${isActive ? 'scale-110 ring-4 ring-primary' : 'opacity-40 hover:opacity-80'
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className={`relative w-14 h-14 md:w-20 md:h-20 rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer shadow-sm ${isActive ? 'ring-4 ring-primary opacity-100 scale-105' : 'opacity-40 hover:opacity-80'
                 }`}
               aria-label={`Go to slide ${idx + 1}`}
             >
@@ -147,7 +156,7 @@ export default function Gallery() {
                 sizes="80px"
                 className="object-cover"
               />
-            </button>
+            </motion.button>
           );
         })}
       </div>

@@ -62,7 +62,7 @@ export default function Hero() {
           className="flex flex-col items-center gap-6"
         >
           {/* Subtitle / Tagline */}
-          <span className="text-white font-black tracking-[0.35em] text-xs md:text-sm uppercase bg-primary px-4 py-2 rounded-full shadow-md">
+          <span className="text-white font-bold tracking-[0.35em] text-xs md:text-sm uppercase bg-white/10 backdrop-blur-md border border-white/30 px-5 py-2 rounded-full shadow-sm">
             ESCAPE
           </span>
 
@@ -80,14 +80,14 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 mt-6">
             <Link
               href="/#destinations"
-              className="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold uppercase tracking-wider text-xs md:text-sm rounded-full shadow-lg hover:scale-105 transition-all flex items-center gap-2 group cursor-pointer"
+              className="px-8 py-4 bg-transparent border border-white text-white font-bold uppercase tracking-wider text-xs md:text-sm rounded-full shadow-lg hover:bg-primary hover:border-primary active:bg-primary active:border-primary hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 group cursor-pointer"
             >
               Explore Destinations
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
             </Link>
             <Link
               href="/#contact"
-              className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40 font-bold uppercase tracking-wider text-xs md:text-sm rounded-full transition-all hover:scale-105 cursor-pointer backdrop-blur-md"
+              className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40 font-bold uppercase tracking-wider text-xs md:text-sm rounded-full hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer backdrop-blur-md block text-center"
             >
               Contact Us
             </Link>

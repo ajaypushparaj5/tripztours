@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Footer() {
   return (
@@ -87,9 +88,16 @@ export default function Footer() {
                 placeholder="Your email address"
                 className="w-full bg-white/5 border border-white/10 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary text-white font-medium placeholder-white/30"
               />
-              <button className="bg-primary hover:bg-primary-dark p-3 rounded-xl hover:scale-[1.03] active:scale-100 transition-all text-white shrink-0 cursor-pointer shadow-md flex items-center justify-center">
-                <Send className="w-4 h-4" />
-              </button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="shrink-0"
+              >
+                <button className="bg-transparent border border-white text-white hover:bg-primary hover:border-primary active:bg-primary active:border-primary p-3 rounded-xl transition-all duration-300 cursor-pointer shadow-sm flex items-center justify-center">
+                  <Send className="w-4 h-4" />
+                </button>
+              </motion.div>
             </div>
           </div>
 
