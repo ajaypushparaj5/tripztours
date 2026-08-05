@@ -75,10 +75,10 @@ const DESTINATIONS_DATA = [
 ];
 
 const STATS = [
-  { value: '500+', label: 'Journeys Crafted' },
-  { value: '25+', label: 'Destinations' },
-  { value: '98%', label: 'Client Satisfaction' },
-  { value: '10+', label: 'Years of Expertise' },
+  { value: '2026', label: 'Founded With Passion' },
+  { value: '100%', label: 'Personalized Itineraries' },
+  { value: '24/7', label: 'Dedicated Support' },
+  { value: 'Kerala', label: 'Proudly Homegrown' },
 ];
 
 export default function Destinations() {
@@ -393,17 +393,14 @@ export default function Destinations() {
             <div className="relative">
               <Quote className="w-8 h-8 text-primary/15 absolute -top-4 -left-6 md:-left-10" />
               <p className="text-lg md:text-2xl font-light leading-relaxed text-charcoal/70 italic max-w-2xl">
-                Tripz World transformed our honeymoon into a cinematic experience. From private luxury transfers in Zurich to dune-drifting oases in Dubai, they curated every moment with unparalleled care.
+                From the very first enquiry to the last day of the trip, every detail was planned with genuine care. It made the whole journey feel effortless and truly memorable.
               </p>
             </div>
 
             <div className="flex flex-col items-center gap-1 pt-2">
               <div className="w-8 h-[1px] bg-charcoal/15 mb-4" />
               <span className="font-black uppercase tracking-[0.2em] text-xs text-charcoal">
-                Elizabeth & Richard
-              </span>
-              <span className="text-charcoal/40 text-[11px] uppercase tracking-[0.15em] font-semibold">
-                Switzerland & Dubai, Sept 2025
+                A Happy Traveller
               </span>
             </div>
 
