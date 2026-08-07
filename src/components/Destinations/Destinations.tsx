@@ -55,9 +55,9 @@ const JOURNEYS_DATA = [
 // --- DESTINATIONS GRID DATA ---
 const DESTINATIONS_DATA = [
   {
-    id: 'swiss',
-    title: 'Swiss Alps',
-    location: 'Zermatt, Switzerland',
+    id: 'phiphi',
+    title: 'Phi Phi Island',
+    location: 'Phi Phi Island, Thailand',
     image: '/activities/large/activity1.jpg',
   },
   {
